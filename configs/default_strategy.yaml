@@ -1,0 +1,54 @@
+# 默认策略配置（红利低波年线策略）v3.1
+
+strategy:
+  name: "红利低波-年线策略"
+  description: "基于250日年线乖离率的量化交易策略"
+
+  # 买入规则（支持分批）
+  buy_rules:
+    - rule_id: "buy_step_1"
+      trigger_type: "bias_below"
+      threshold: 0.0          # Bias < 0，即净值低于年线即买入
+      action: "BUY"
+      position_ratio: 1.0
+      description: "乖离率低于0%（低于年线），全仓买入"
+
+  # 卖出规则（支持分批）
+  sell_rules:
+    - rule_id: "sell_step_1"
+      trigger_type: "bias_above"
+      threshold: 10.0         # Bias >= 10%
+      action: "SELL"
+      position_ratio: 1.0
+      description: "乖离率高于10%，全仓卖出"
+
+# 回测参数
+backtest:
+  initial_capital: 100000.0  # 初始资金（元）
+  min_shares: 0.01            # 最小交易份额
+  start_date: "2021-01-01"
+  end_date: "2025-12-31"
+  dividend_mode: "reinvest"   # 分红模式: reinvest=再投(默认) / cash=落袋
+
+# 数据源配置
+data_source:
+  provider: "eastmoney"
+  cache_enabled: true
+  cache_ttl: 604800           # 7天（秒）
+
+# 可视化配置
+visualization:
+  default_theme: "professional"
+  output_dir: "output"
+  dpi: 150
+  themes:
+    - professional
+    - modern
+    - dark
+    - pastel
+    - vibrant
+
+# 交互配置
+interaction:
+  ui_enabled: true
+  auto_save: false

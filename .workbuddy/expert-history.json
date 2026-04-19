@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "sessions": {
+    "664ba6ed688b46989f9a055245e6a4ee": [
+      {
+        "expertId": "SeniorDeveloper",
+        "name": "Will",
+        "profession": "高级开发工程师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/02-Engineering/SeniorDeveloper/SeniorDeveloper.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/02-Engineering/SeniorDeveloper/SeniorDeveloper_zh.md",
+        "usedAt": 1776063532310,
+        "industryId": "all"
+      },
+      {
+        "expertId": "DataAnalyticsReporter",
+        "name": "Phoebe",
+        "profession": "数据分析报告师",
+        "avatarUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/avatars/09-Operations/DataAnalyticsReporter/DataAnalyticsReporter.png",
+        "promptUrl": "https://acc-1258344699.cos.accelerate.myqcloud.com/workbuddy/experts/experts/09-Operations/DataAnalyticsReporter/DataAnalyticsReporter_zh.md",
+        "usedAt": 1775812470682,
+        "industryId": "all"
+      }
+    ]
+  },
+  "lastUpdated": 1776086575300
+}
