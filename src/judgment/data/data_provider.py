@@ -10,7 +10,7 @@ from typing import Dict, Optional
 
 import pandas as pd
 
-from src.core.providers.akshare_provider import AkshareProvider
+from src.core.providers.akshare_data_provider import AkshareDataProvider
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +23,8 @@ class DataProvider:
         Args:
             cache_dir: 缓存目录
         """
-        # 使用主项目的AkshareProvider作为统一数据源
-        self.provider = AkshareProvider()
+        # 使用主项目的AkshareDataProvider作为统一数据源
+        self.provider = AkshareDataProvider()
     
     def get_etf_data(self, etf_code: str, days: int = 180) -> pd.DataFrame:
         """获取ETF历史数据
@@ -42,8 +42,8 @@ class DataProvider:
         start_date = '2024-01-01'
         end_date = '2024-12-31'
         
-        # 使用主项目的AkshareProvider获取数据
-        fund_data = self.provider.get_etf_history(
+        # 使用主项目的AkshareDataProvider获取数据
+        fund_data = self.provider.get_etf_data(
             code=etf_code,
             start=start_date,
             end=end_date
@@ -75,8 +75,8 @@ class DataProvider:
         end_date = datetime.datetime.now().strftime('%Y-%m-%d')
         start_date = (datetime.datetime.now() - datetime.timedelta(days=365)).strftime('%Y-%m-%d')
         
-        # 使用主项目的AkshareProvider获取数据
-        fund_data = self.provider.get_etf_history(
+        # 使用主项目的AkshareDataProvider获取数据
+        fund_data = self.provider.get_etf_data(
             code=etf_code,
             start=start_date,
             end=end_date

@@ -8,7 +8,7 @@ import numpy as np
 # 添加项目根目录到Python路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.core.providers.akshare_provider import AkshareProvider
+from src.core.providers.akshare_data_provider import AkshareDataProvider
 from src.core.visualizers.technical_chart import TechnicalChart
 from src.backtest.engines.backtest import BacktestEngine
 from src.backtest.strategies.annual_line import AnnualLineStrategy
@@ -19,11 +19,11 @@ class TestCoreFunctions(unittest.TestCase):
     
     def setUp(self):
         """设置测试环境"""
-        self.provider = AkshareProvider()
+        self.provider = AkshareDataProvider()
         self.chart = TechnicalChart()
         
         # 获取测试数据
-        self.fund_data = self.provider.get_etf_history(
+        self.fund_data = self.provider.get_etf_data(
             code='512890',
             start='2024-01-01',
             end='2024-12-31'
@@ -106,7 +106,7 @@ class TestCoreFunctions(unittest.TestCase):
     def test_data_provider(self):
         """测试数据获取模块"""
         start_time = time.time()
-        fund_data = self.provider.get_etf_history(
+        fund_data = self.provider.get_etf_data(
             code='512890',
             start='2024-01-01',
             end='2024-01-31'

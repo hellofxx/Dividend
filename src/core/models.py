@@ -102,6 +102,28 @@ class IndexData:
     df: pd.DataFrame
 
 
+@dataclass
+class StockData:
+    """
+    标准化股票行情数据
+
+    Attributes:
+        code: 股票代码
+        name: 股票名称
+        df: 行情DataFrame，列: date(datetime), open(float), high(float), low(float), close(float), volume(float)
+    """
+    code: str
+    name: str
+    df: pd.DataFrame
+
+    def __post_init__(self):
+        """验证数据格式"""
+        required_cols = ['date', 'open', 'high', 'low', 'close', 'volume']
+        if not all(col in self.df.columns for col in required_cols):
+            missing = [c for c in required_cols if c not in self.df.columns]
+            raise ValueError(f"StockData.df 缺少必需列: {missing}")
+
+
 # ============================================================
 # 交易与回测结果契约
 # ============================================================

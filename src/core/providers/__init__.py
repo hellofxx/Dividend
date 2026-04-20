@@ -2,10 +2,10 @@
 数据源层
 
 提供统一的数据获取接口。
-仅使用 AkshareProvider 作为数据源。
+仅使用 AkshareDataProvider 作为数据源。
 """
 
-from .base import BaseProvider
-from .akshare_provider import AkshareProvider
+from .base import DataProvider, DataProviderFactory
+from .akshare_data_provider import AkshareDataProvider
 
-__all__ = ["BaseProvider", "AkshareProvider"]
+__all__ = ["DataProvider", "DataProviderFactory", "AkshareDataProvider"]

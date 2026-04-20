@@ -590,3 +590,216 @@ _tkinter.TclError: image "pyimage52" doesn't exist
 2026-04-19 21:00:07,470 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260419_210006.png
 2026-04-19 21:00:09,115 - src.core.visualizers.technical_chart - WARNING - pandas_ta KDJ计算结果不完整，使用手动计算
 2026-04-19 21:00:13,472 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260419_210011.png
+2026-04-19 21:20:36,146 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-19 21:20:36,148 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 21:20:37,119 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 21:20:37,425 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 21:20:37,426 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 21:20:37,894 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 21:20:37,897 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 21:20:37,913 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 21:20:37,914 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
+2026-04-19 21:20:38,492 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 21:20:38,510 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
+2026-04-19 21:20:38,546 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
+2026-04-19 21:20:38,557 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
+2026-04-19 21:20:38,562 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
+2026-04-19 21:20:38,573 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
+2026-04-19 21:20:38,577 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
+2026-04-19 21:20:38,590 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
+2026-04-19 21:20:38,597 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
+2026-04-19 21:20:40,069 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 21:20:40,188 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
+2026-04-19 21:20:40,314 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
+2026-04-19 21:20:40,314 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-19 21:20:40,318 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 21:20:40,319 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-19 21:20:45,917 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 21:20:46,307 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 5890 条
+2026-04-19 21:20:46,316 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（5890条）
+2026-04-19 21:20:46,325 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 21:20:46,449 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-19 21:20:46,450 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-19 21:20:46,455 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 21:20:46,456 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-19 21:20:51,714 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 21:20:52,175 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 8623 条
+2026-04-19 21:20:52,186 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（8623条）
+2026-04-19 21:20:52,192 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 21:20:52,294 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-19 21:20:52,310 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 21:20:53,912 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260419_212053.png
+2026-04-19 21:20:56,108 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-19 21:20:56,117 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-19 21:20:56,997 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260419_212056.png
+2026-04-19 21:20:57,288 - src.core.visualizers.technical_chart - WARNING - pandas_ta MACD计算失败: 'DataFrame' object has no attribute 'ta'，使用手动计算
+2026-04-19 21:20:58,548 - src.core.visualizers.technical_chart - WARNING - pandas_ta RSI计算失败: 'DataFrame' object has no attribute 'ta'，使用手动计算
+2026-04-19 21:21:00,326 - src.core.visualizers.technical_chart - WARNING - pandas_ta KDJ计算失败: 'DataFrame' object has no attribute 'ta'，使用手动计算
+2026-04-19 21:21:04,491 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260419_212102.png
+2026-04-20 12:37:16,746 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-20 12:37:16,749 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 12:37:17,807 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-20 12:37:18,104 - src.core.providers.akshare_provider - INFO - fund_etf_hist_em 获取成功: 1211 条
+2026-04-20 12:37:18,106 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1211条）
+2026-04-20 12:37:18,123 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 12:37:18,123 - src.core.providers.akshare_provider - INFO - bias 统计: mean=5.62%, std=3.91%
+2026-04-20 12:37:18,958 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 12:37:18,961 - src.backtest.engines.backtest - INFO - 买入: 2021-01-04 00:00:00 @ 0.6600 | 份额 151515.15 | 剩余现金 -0.00
+2026-04-20 12:37:18,966 - src.backtest.engines.backtest - INFO - 卖出: 2021-05-31 00:00:00 @ 0.7690 | 份额 151515.15 | 剩余现金 116515.15
+2026-04-20 12:37:18,969 - src.backtest.engines.backtest - INFO - 买入: 2021-07-27 00:00:00 @ 0.7110 | 份额 163875.04 | 剩余现金 0.00
+2026-04-20 12:37:18,971 - src.backtest.engines.backtest - INFO - 卖出: 2021-08-31 00:00:00 @ 0.8000 | 份额 163875.04 | 剩余现金 131100.03
+2026-04-20 12:37:18,976 - src.backtest.engines.backtest - INFO - 买入: 2022-03-15 00:00:00 @ 0.7470 | 份额 175502.05 | 剩余现金 0.00
+2026-04-20 12:37:18,978 - src.backtest.engines.backtest - INFO - 卖出: 2022-04-01 00:00:00 @ 0.8550 | 份额 175502.05 | 剩余现金 150054.25
+2026-04-20 12:37:18,984 - src.backtest.engines.backtest - INFO - 买入: 2022-08-02 00:00:00 @ 0.8010 | 份额 187333.65 | 剩余现金 0.00
+2026-04-20 12:37:18,991 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 187333.65 | 剩余现金 174032.96
+2026-04-20 12:37:19,000 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 191666.25 | 剩余现金 0.00
+2026-04-20 12:37:19,003 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 191666.25 | 剩余现金 195691.24
+2026-04-20 12:37:19,010 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 197667.92 | 剩余现金 0.00
+2026-04-20 12:37:19,011 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 197667.92 | 剩余现金 222771.75
+2026-04-20 12:37:19,018 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 209371.95 | 剩余现金 0.00
+2026-04-20 12:37:19,020 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 209371.95 | 剩余现金 251455.71
+2026-04-20 12:37:20,647 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 12:37:20,699 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 78.18% | 年化 12.28%
+2026-04-20 12:37:20,766 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 29.53%
+2026-04-20 12:37:20,767 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-20 12:37:20,770 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 12:37:20,770 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-20 12:37:31,584 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-20 12:37:32,197 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 5890 条
+2026-04-20 12:37:32,205 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（5890条）
+2026-04-20 12:37:32,212 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 12:37:32,262 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-20 12:37:32,263 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-20 12:37:32,265 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 12:37:32,266 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-20 12:37:38,201 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-20 12:37:38,528 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 8623 条
+2026-04-20 12:37:38,536 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（8623条）
+2026-04-20 12:37:38,542 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 12:37:38,596 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-20 12:37:38,607 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 12:37:40,551 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_123740.png
+2026-04-20 12:37:43,709 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 12:37:43,719 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 12:37:44,297 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_123743.png
+2026-04-20 12:37:44,394 - src.core.visualizers.technical_chart - WARNING - pandas_ta MACD计算失败: 0，使用手动计算
+2026-04-20 12:37:45,138 - src.core.visualizers.technical_chart - WARNING - pandas_ta KDJ计算失败: 0，使用手动计算
+2026-04-20 12:37:48,065 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_123746.png
+2026-04-20 13:06:52,105 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-20 13:06:52,126 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 13:06:53,131 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-20 13:06:53,439 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-20 13:06:53,439 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-20 13:06:53,995 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-20 13:06:53,998 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-20 13:06:54,011 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 13:06:54,011 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
+2026-04-20 13:06:54,332 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 13:06:54,347 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
+2026-04-20 13:06:54,376 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
+2026-04-20 13:06:54,386 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
+2026-04-20 13:06:54,389 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
+2026-04-20 13:06:54,395 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
+2026-04-20 13:06:54,397 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
+2026-04-20 13:06:54,404 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
+2026-04-20 13:06:54,408 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
+2026-04-20 13:06:55,528 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 13:06:55,595 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
+2026-04-20 13:06:55,663 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
+2026-04-20 13:06:55,664 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-20 13:06:55,679 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 13:06:55,679 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-20 13:07:01,461 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-20 13:07:01,859 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 5890 条
+2026-04-20 13:07:01,865 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（5890条）
+2026-04-20 13:07:01,871 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 13:07:01,931 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-20 13:07:01,931 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-20 13:07:01,935 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-20 13:07:01,935 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-20 13:07:07,652 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-20 13:07:08,030 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 8623 条
+2026-04-20 13:07:08,038 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（8623条）
+2026-04-20 13:07:08,044 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-20 13:07:08,101 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-20 13:07:08,110 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 13:07:08,125 - src.core.visualizers.technical_chart - WARNING - pandas_ta未安装，技术指标计算可能较慢
+2026-04-20 13:07:09,696 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_130709.png
+2026-04-20 13:07:11,234 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:07:11,241 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:07:11,797 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_130711.png
+2026-04-20 13:07:16,203 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_130714.png
+2026-04-20 13:42:03,839 - src.core.providers.akshare_data_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-01-31
+2026-04-20 13:42:03,845 - src.core.providers.akshare_data_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-20 13:42:03,856 - src.core.providers.akshare_data_provider - INFO - ETF 红利低波ETF 处理完成: 22 条 (2024-01-02 ~ 2024-01-31)
+2026-04-20 13:42:03,857 - src.core.providers.akshare_data_provider - INFO - bias 统计: mean=2.21%, std=1.91%
+2026-04-20 13:42:04,309 - src.backtest.engines.backtest - INFO - 开始回测: 22 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 13:42:04,312 - src.backtest.engines.backtest - INFO - 买入: 2024-01-22 00:00:00 @ 0.8980 | 份额 111358.57 | 剩余现金 0.00
+2026-04-20 13:42:05,210 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 13:42:05,215 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 3.35% | 年化 51.46%
+2026-04-20 13:42:05,227 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 1 次 | 月投 10000 元/月 | 累计收益率 3.35%
+2026-04-20 13:42:05,228 - src.backtest.engines.benchmark - WARNING - 获取沪深300数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 13:42:05,228 - src.backtest.engines.benchmark - WARNING - 获取上证指数数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 13:42:05,233 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 13:42:05,238 - src.core.visualizers.technical_chart - WARNING - pandas_ta未安装，技术指标计算可能较慢
+2026-04-20 13:42:06,531 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_134205.png
+2026-04-20 13:42:09,087 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:42:09,094 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:42:09,495 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_134209.png
+2026-04-20 13:42:12,754 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_134211.png
+2026-04-20 13:56:37,507 - src.core.providers.akshare_data_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-01-31
+2026-04-20 13:56:37,514 - src.core.providers.akshare_data_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-20 13:56:37,523 - src.core.providers.akshare_data_provider - INFO - ETF 红利低波ETF 处理完成: 22 条 (2024-01-02 ~ 2024-01-31)
+2026-04-20 13:56:37,523 - src.core.providers.akshare_data_provider - INFO - bias 统计: mean=2.21%, std=1.91%
+2026-04-20 13:56:37,939 - src.backtest.engines.backtest - INFO - 开始回测: 22 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 13:56:37,940 - src.backtest.engines.backtest - INFO - 买入: 2024-01-22 00:00:00 @ 0.8980 | 份额 111358.57 | 剩余现金 0.00
+2026-04-20 13:56:38,649 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 13:56:38,654 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 3.35% | 年化 51.46%
+2026-04-20 13:56:38,664 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 1 次 | 月投 10000 元/月 | 累计收益率 3.35%
+2026-04-20 13:56:38,664 - src.backtest.engines.benchmark - WARNING - 获取沪深300数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 13:56:38,664 - src.backtest.engines.benchmark - WARNING - 获取上证指数数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 13:56:38,670 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 13:56:38,677 - src.core.visualizers.technical_chart - WARNING - pandas_ta未安装，技术指标计算可能较慢
+2026-04-20 13:56:39,505 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_135639.png
+2026-04-20 13:56:41,293 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:56:41,299 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 13:56:41,802 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_135641.png
+2026-04-20 13:56:45,322 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_135644.png
+2026-04-20 14:13:34,797 - src.core.providers.akshare_data_provider - INFO - 获取基金 512890 数据: 2024-01-01 至 2024-01-31
+2026-04-20 14:13:34,797 - src.core.providers.akshare_data_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-01-31
+2026-04-20 14:13:34,806 - src.core.providers.akshare_data_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-20 14:13:34,819 - src.core.providers.akshare_data_provider - INFO - ETF 红利低波ETF 处理完成: 22 条 (2024-01-02 ~ 2024-01-31)
+2026-04-20 14:13:34,819 - src.core.providers.akshare_data_provider - INFO - bias 统计: mean=2.21%, std=1.91%
+2026-04-20 14:13:35,266 - src.backtest.engines.backtest - INFO - 开始回测: 22 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 14:13:35,268 - src.backtest.engines.backtest - INFO - 买入: 2024-01-22 00:00:00 @ 0.8980 | 份额 111358.57 | 剩余现金 0.00
+2026-04-20 14:13:36,264 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 14:13:36,270 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 3.35% | 年化 51.46%
+2026-04-20 14:13:36,282 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 1 次 | 月投 10000 元/月 | 累计收益率 3.35%
+2026-04-20 14:13:36,282 - src.backtest.engines.benchmark - WARNING - 获取沪深300数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 14:13:36,282 - src.backtest.engines.benchmark - WARNING - 获取上证指数数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 14:13:36,290 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 14:13:36,295 - src.core.visualizers.technical_chart - WARNING - pandas_ta未安装，技术指标计算可能较慢
+2026-04-20 14:13:37,260 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_141336.png
+2026-04-20 14:13:39,330 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 14:13:39,338 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 14:13:39,751 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_141339.png
+2026-04-20 14:13:43,309 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_141342.png
+2026-04-20 14:24:34,726 - src.core.providers.akshare_data_provider - INFO - 获取基金 512890 数据: 2024-01-01 至 2024-01-31
+2026-04-20 14:24:34,726 - src.core.providers.akshare_data_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-01-31
+2026-04-20 14:24:34,733 - src.core.providers.akshare_data_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-20 14:24:34,742 - src.core.providers.akshare_data_provider - INFO - ETF 红利低波ETF 处理完成: 22 条 (2024-01-02 ~ 2024-01-31)
+2026-04-20 14:24:34,742 - src.core.providers.akshare_data_provider - INFO - bias 统计: mean=2.21%, std=1.91%
+2026-04-20 14:24:35,181 - src.backtest.engines.backtest - INFO - 开始回测: 22 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-20 14:24:35,182 - src.backtest.engines.backtest - INFO - 买入: 2024-01-22 00:00:00 @ 0.8980 | 份额 111358.57 | 剩余现金 0.00
+2026-04-20 14:24:35,864 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-20 14:24:35,868 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 3.35% | 年化 51.46%
+2026-04-20 14:24:35,874 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 1 次 | 月投 10000 元/月 | 累计收益率 3.35%
+2026-04-20 14:24:35,874 - src.backtest.engines.benchmark - WARNING - 获取沪深300数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 14:24:35,874 - src.backtest.engines.benchmark - WARNING - 获取上证指数数据失败，跳过: 'AkshareDataProvider' object has no attribute 'get_index_history'
+2026-04-20 14:24:35,880 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-20 14:24:35,884 - src.core.visualizers.technical_chart - WARNING - pandas_ta未安装，技术指标计算可能较慢
+2026-04-20 14:24:36,747 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260420_142436.png
+2026-04-20 14:24:38,795 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 14:24:38,801 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-20 14:24:39,310 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260420_142438.png
+2026-04-20 14:24:42,824 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260420_142441.png

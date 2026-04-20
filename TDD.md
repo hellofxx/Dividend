@@ -2,8 +2,8 @@
 
 | 属性 | 内容 |
 |------|------|
-| 关联PRD | PRD v1.5 (量化工作室) |
-| 版本 | v1.5 |
+| 关联PRD | PRD v1.6 (量化工作室) |
+| 版本 | v1.6 |
 | 面向角色 | 后端开发、算法开发、测试工程师 |
 | 命名规范基准 | PEP 8 / Python 标准库结构 |
 
@@ -217,22 +217,28 @@ class CompareResult:
 ### 4.1 抽象接口
 
 ```python
-class BaseProvider(ABC):
+class DataProvider(ABC):
     @abstractmethod
-    def get_etf_history(self, code: str, start: str, end: str) -> FundData: ...
+    def get_etf_data(self, code: str, start: str, end: str) -> FundData: ...
 
     @abstractmethod
-    def get_index_history(self, code: str, start: str, end: str) -> IndexData: ...
+    def get_index_data(self, code: str, start: str, end: str) -> IndexData: ...
+
+    @abstractmethod
+    def get_fund_data(self, code: str, start: str, end: str) -> FundData: ...
+
+    @abstractmethod
+    def get_stock_data(self, code: str, start: str, end: str) -> StockData: ...
 
     @abstractmethod
     def get_name(self) -> str: ...
 ```
 
-### 4.2 AkshareProvider 实现
+### 4.2 AkshareDataProvider 实现
 
 ```python
-class AkshareProvider(BaseProvider):
-    def get_etf_history(self, code, start, end) -> FundData:
+class AkshareDataProvider(DataProvider):
+    def get_etf_data(self, code, start, end) -> FundData:
         # 1. 检查缓存: 优先从本地缓存加载
         # 2. 缓存数据处理: 检查日期范围覆盖情况
         # 3. 数据获取: 优先前复权: ak.fund_etf_hist_em(symbol=code, adjust='qfq')
@@ -242,7 +248,7 @@ class AkshareProvider(BaseProvider):
         # 7. 缓存更新: 保存到本地缓存 (永久缓存 512890)
         ...
 
-    def get_index_history(self, code, start, end) -> IndexData:
+    def get_index_data(self, code, start, end) -> IndexData:
         # 1. 检查缓存: 优先从本地缓存加载
         # 2. 缓存数据处理: 检查日期范围覆盖情况
         # 3. 数据获取: 优先 ak.index_zh_a_hist(symbol=code)
@@ -250,6 +256,16 @@ class AkshareProvider(BaseProvider):
         # 5. 数据处理: 计算 daily_return
         # 6. 数据完整性校验: 检查数据连续性、字段完整性
         # 7. 缓存更新: 保存到本地缓存 (永久缓存 000300/000001)
+        ...
+
+    def get_fund_data(self, code, start, end) -> FundData:
+        # 1. 检查是否为ETF
+        # 2. 使用 fund_open_fund_info_em 获取基金数据
+        # 3. 数据处理和指标计算
+        ...
+
+    def get_stock_data(self, code, start, end) -> StockData:
+        # 股票数据获取逻辑
         ...
 
     def _load_from_cache(self, cache_path, code=None, ignore_expiry=False):

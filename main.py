@@ -173,12 +173,12 @@ def run_judgment_mode(args):
 
 def _get_fund_data(args):
     """获取基金数据"""
-    from src.core.providers.akshare_provider import AkshareProvider
+    from src.core.providers.akshare_data_provider import AkshareDataProvider
     
-    provider = AkshareProvider()
+    provider = AkshareDataProvider()
     print(f"[INFO] 数据源: {provider.get_name()}")
 
-    fund_data = provider.get_etf_history(
+    fund_data = provider.get_etf_data(
         code=args.etf_code,
         start=args.start_date,
         end=args.end_date,

@@ -3,9 +3,9 @@
 | 属性 | 内容 |
 |------|------|
 | 产品名称 | 量化工作室 QuantStudio |
-| 版本 | **v1.5** |
+| 版本 | **v1.6** |
 | 文档状态 | 已定稿 |
-| 最后更新 | 2026-04-20 (v1.5: 集成第三方库优化，提升技术指标计算效率和图表可视化效果) |
+| 最后更新 | 2026-04-20 (v1.6: 修复基金数据接口，优化数据获取模块) |
 | 关联文档 | [TDD.md](./TDD.md) 技术设计文档、[AGENTS.md](./AGENTS.md) 智能体协同开发规范 |
 
 > **产品定位**：一款具备高扩展性的**量化分析综合平台**，整合**实时技术分析**与**历史回测验证**两大核心功能，帮助投资者做出更明智的投资决策。
@@ -182,17 +182,19 @@
 │                   AkshareProvider                        │
 │  (统一数据接口，删除其他数据源)                           │
 ├─────────────────────────────────────────────────────────┤
-│  get_etf_history(code, start, end) → FundData          │
-│  get_index_history(code, start, end) → IndexData        │
+│  get_etf_data(code, start, end) → FundData            │
+│  get_index_data(code, start, end) → IndexData        │
+│  get_fund_data(code, start, end) → FundData          │
+│  get_stock_data(code, start, end) → StockData        │
 └─────────────────────────────────────────────────────────┘
-           │                    │
-           ▼                    ▼
-    ┌─────────────┐      ┌─────────────┐
-    │  FundData   │      │  IndexData  │
-    │  • code     │      │  • code     │
-    │  • name     │      │  • name     │
-    │  • df       │      │  • df       │
-    │  • dividends│      └─────────────┘
+           │                    │                    │
+           ▼                    ▼                    ▼
+    ┌─────────────┐      ┌─────────────┐      ┌─────────────┐
+    │  FundData   │      │  IndexData  │      │  StockData  │
+    │  • code     │      │  • code     │      │  • code     │
+    │  • name     │      │  • name     │      │  • name     │
+    │  • df       │      │  • df       │      │  • df       │
+    │  • dividends│      └─────────────┘      └─────────────┘
     └─────────────┘
 ```
 

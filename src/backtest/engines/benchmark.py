@@ -24,7 +24,7 @@ from src.core.models import (
     BacktestResult, CompareResult, FundData,
     StrategyConfig, TradeRecord
 )
-from src.core.providers.akshare_provider import AkshareProvider
+from src.core.providers.akshare_data_provider import AkshareDataProvider
 from src.backtest.analytics import MetricsCalculator, ReturnsCalculator, BenchmarkMetrics
 
 logger = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ class BenchmarkEngine:
         config: StrategyConfig,
         main_result: BacktestResult,
         fund_data: FundData,
-        provider: Optional[AkshareProvider] = None,
+        provider: Optional[AkshareDataProvider] = None,
     ) -> CompareResult:
         """
         运行所有基准并生成对比结果
@@ -240,7 +240,7 @@ class BenchmarkEngine:
     # 基准 C：沪深300指数
     # ------------------------------------------------------------------
 
-    def _run_index(self, provider: AkshareProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
+    def _run_index(self, provider: AkshareDataProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
         """获取沪深300同期资金曲线"""
         try:
             index_data = provider.get_index_history(
@@ -277,7 +277,7 @@ class BenchmarkEngine:
     # 基准 D：上证指数
     # ------------------------------------------------------------------
 
-    def _run_shanghai_index(self, provider: AkshareProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
+    def _run_shanghai_index(self, provider: AkshareDataProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
         """获取上证指数（000001）同期资金曲线"""
         try:
             index_data = provider.get_index_history(

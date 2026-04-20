@@ -40,10 +40,12 @@ from src.core.models import (
     BacktestResult,
     StrategyConfig,
     DividendMode,
+    StockData,
 )
 from src.core.providers import (
-    BaseProvider,
-    AkshareProvider,
+    DataProvider,
+    DataProviderFactory,
+    AkshareDataProvider,
 )
 from src.backtest.strategies import (
     StrategyState,
@@ -78,9 +80,11 @@ __all__ = [
     'BacktestResult',
     'StrategyConfig',
     'DividendMode',
+    'StockData',
     # 数据源
-    'BaseProvider',
-    'AkshareProvider',
+    'DataProvider',
+    'DataProviderFactory',
+    'AkshareDataProvider',
     # 策略
     'StrategyState',
     'AnnualLineStrategy',
