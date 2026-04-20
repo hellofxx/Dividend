@@ -243,7 +243,7 @@ class BenchmarkEngine:
     def _run_index(self, provider: AkshareDataProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
         """获取沪深300同期资金曲线"""
         try:
-            index_data = provider.get_index_history(
+            index_data = provider.get_index_data(
                 code="000300",
                 start=config.start_date,
                 end=config.end_date,
@@ -280,7 +280,7 @@ class BenchmarkEngine:
     def _run_shanghai_index(self, provider: AkshareDataProvider, config: StrategyConfig) -> Optional[pd.DataFrame]:
         """获取上证指数（000001）同期资金曲线"""
         try:
-            index_data = provider.get_index_history(
+            index_data = provider.get_index_data(
                 code="000001",
                 start=config.start_date,
                 end=config.end_date,
