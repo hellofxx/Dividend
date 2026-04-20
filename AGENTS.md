@@ -12,12 +12,13 @@
 - 所有代码必须在 **Conda study 环境** 中开发和运行
 - VSCode 终端启动后执行：`conda activate study`
 - 依赖清单：`pandas`, `numpy`, `matplotlib`, `akshare`, `pyyaml`
+- 性能优化依赖：`numba` (0.60.0+), `plotly` (5.24.0+), `pandas_ta` (0.3.14+), `seaborn` (0.13.0+), `cufflinks` (0.17.3+)
 - Python 版本：3.9+
 
 **环境检查命令**：
 ```bash
 conda activate study
-python -c "import pandas, numpy, matplotlib, akshare; print('[OK] Environment ready')"
+python -c "import pandas, numpy, matplotlib, akshare, numba, plotly, pandas_ta, seaborn, cufflinks; print('[OK] Environment ready')"
 ```
 
 ---
@@ -89,7 +90,7 @@ python -c "import pandas, numpy, matplotlib, akshare; print('[OK] Environment re
 
 ### 2. Agent: DataProvider (数据源开发者)
 
-- **职责**：实现 akshare 统一数据源，支持 ETF 前复权数据与指数数据获取。
+- **职责**：实现 akshare 统一数据源，支持 ETF 前复权数据与指数数据获取，增强数据完整性校验和缓存机制。
 - **输入**：TDD 第 3 章。
 - **执行动作**：
   1. 实现 `src/core/providers/base.py` 抽象基类。
@@ -99,8 +100,20 @@ python -c "import pandas, numpy, matplotlib, akshare; print('[OK] Environment re
      - 失败降级 `ak.stock_zh_index_daily(symbol=f'sh{code}')` 不复权数据
   4. **指数数据获取**：优先 `ak.index_zh_a_hist()`，失败降级新浪源。
   5. **ma_250 和 bias 计算**：在 `_process_etf_data()` 中计算。
-  6. **缓存机制**：永久缓存 512890、000300、000001。
-  7. **内置3次重试机制**。
+  6. **累计净值计算**：在 `_process_etf_data()` 中计算 `acc_nav`。
+  7. **缓存机制**：
+     - 永久缓存 512890、000300、000001
+     - 实现缓存数据完整性检查
+     - 实现回测区间数据处理逻辑
+  8. **数据完整性校验**：
+     - 数据连续性检查
+     - 字段完整性验证
+     - 数据格式一致性校验
+  9. **异常处理机制**：
+     - 内置3次重试机制
+     - 网络异常自动重试
+     - 接口失败自动降级
+     - 清晰的错误提示
 
 - **禁止**：引入非 akshare 数据源。
 
@@ -159,36 +172,37 @@ python -c "import pandas, numpy, matplotlib, akshare; print('[OK] Environment re
 
 ### 7. Agent: UI Developer (界面开发者)
 
-- **职责**：实现 Windows 弹窗交互、多线叠加可视化、主题管理与图片自适应缩放。
+- **职责**：实现 Windows 弹窗交互、多线叠加可视化、主题管理与图片自适应缩放，优化图表可视化效果。
 - **输入**：PRD 第 2.5、3 章及 TDD 第 6 章。
 - **执行动作**：
   1. 实现 `src/backtest/ui/dialogs.py`（回测模式弹窗）。
   2. **5套预设视觉主题**：在 `core/visualizers/themes.py` 中实现。
-  3. **策略对比图**：五线叠加资金曲线图。
-  4. **PreviewDialog 布局与性能**：
+  3. **策略对比图**：五线叠加资金曲线图，使用seaborn增强美观度。
+  4. **交互式图表**：使用Plotly实现交互式净值走势和技术指标图表。
+  5. **PreviewDialog 布局与性能**：
      - 按钮布局：`side=tk.BOTTOM`
      - 图片显示：tk.Label + PIL.ImageTk
      - 分层缩放：拖拽时 BILINEAR，停止后 LANCZOS
-  5. **4弹窗同时展示模式**。
+  6. **4弹窗同时展示模式**。
 
 ### 8. Agent: ETFAnalyzer Developer (技术分析开发者)
 
-- **职责**：实现判断模式（ETF技术分析工具）的界面与技术指标。
+- **职责**：实现判断模式（ETF技术分析工具）的界面与技术指标，优化技术指标计算效率。
 - **输入**：PRD 2.1 节、TDD 第 8 章。
 - **执行动作**：
-  1. 实现 `src/judgment/indicators/` 下的技术指标：
+  1. 实现 `src/judgment/indicators/` 下的技术指标，使用pandas_ta库提升计算效率，添加降级方案：
      - `bias.py`：乖离率（period=250）
      - `macd.py`：MACD(12,26,9)
      - `rsi.py`：RSI(14)
      - `kdj.py`：KDJ(9,3,3)
      - `bollinger.py`：布林带(20,2)
   2. 实现 `src/judgment/charts/` 下的图表组件：
-     - `kline_chart.py`、`volume_chart.py`、`macd_chart.py`、`rsi_chart.py`、`kdj_chart.py`、`bollinger_chart.py`
+     - `kline_chart.py`、`macd_chart.py`、`rsi_chart.py`、`kdj_chart.py`、`bollinger_chart.py`
   3. 实现 `src/judgment/ui/` 下的界面：
      - `main_window.py`：主窗口（30%左侧信息面板 + 70%右侧图表区域）
      - `control_panel.py`：顶部导航栏
      - `info_panel.py`：左侧信息面板
-     - `chart_panel.py`：右侧6图表面板
+     - `chart_panel.py`：右侧5图表面板
   4. 实现 `src/judgment/indicators/signal_generator.py`：多因子综合判定买入信号。
 
 - **买入信号判定规则**：
@@ -266,4 +280,4 @@ python main.py --mode backtest --etf-code 512890 --start-date 2021-01-01
 
 ---
 
-*文档版本：v1.2 | 最后更新：2026-04-17*
+*文档版本：v1.4 | 最后更新：2026-04-20*

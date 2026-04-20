@@ -18,6 +18,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
+from numba import jit
 
 from src.core.models import TradeRecord
 
@@ -156,11 +157,9 @@ class MetricsCalculator:
         downside_returns = daily_returns[daily_returns < 0]
         downside_dev = downside_returns.std() * np.sqrt(252) * 100 if len(downside_returns) > 0 else 0.0
         
-        # 最大回撤
+        # 最大回撤（使用Numba加速）
         values = df['total_value'].values
-        peak = np.maximum.accumulate(values)
-        drawdown = (values - peak) / peak
-        max_drawdown = abs(np.min(drawdown)) * 100
+        max_drawdown = cls._calculate_max_drawdown_numba(values) * 100
         
         # 年化收益率（用于计算比率）
         annual_return = daily_returns.mean() * 252 * 100
@@ -206,14 +205,14 @@ class MetricsCalculator:
         winning = [p for p in profits if p > 0]
         losing = [p for p in profits if p < 0]
         
-        avg_profit = np.mean(winning) if winning else 0.0
-        avg_loss = abs(np.mean(losing)) if losing else 1.0
+        avg_profit = float(np.mean(winning)) if winning else 0.0
+        avg_loss = abs(float(np.mean(losing))) if losing else 1.0
         
         profit_loss_ratio = avg_profit / avg_loss if avg_loss > 0 else 0.0
         
         return {
-            'win_rate': win_rate,
-            'profit_loss_ratio': profit_loss_ratio,
+            'win_rate': float(win_rate),
+            'profit_loss_ratio': float(profit_loss_ratio),
         }
 
     # ==================== DCA 专用指标 ====================
@@ -326,11 +325,9 @@ class MetricsCalculator:
         downside_returns = daily_returns[daily_returns < 0]
         downside_dev = downside_returns.std() * np.sqrt(252) * 100 if len(downside_returns) > 0 else 0.0
         
-        # 最大回撤（净值回撤）
+        # 最大回撤（净值回撤，使用Numba加速）
         nav_values = df['nav'].values
-        peak = np.maximum.accumulate(nav_values)
-        drawdown = (nav_values - peak) / peak
-        max_drawdown = abs(np.min(drawdown)) * 100
+        max_drawdown = cls._calculate_max_drawdown_numba(nav_values) * 100
         
         # 年化收益率（用于计算比率）
         annual_return = daily_returns.mean() * 252 * 100
@@ -355,31 +352,64 @@ class MetricsCalculator:
 
     # ==================== 私有工具方法 ====================
 
-    @classmethod
-    def _calc_trade_profits(cls, trades: List[TradeRecord]) -> List[float]:
-        """配对买卖，计算每笔完整交易的盈亏金额"""
+    @staticmethod
+    @jit(nopython=True)
+    def _calc_trade_profits_numba(actions, shares, prices):
+        """使用Numba加速的交易盈亏计算"""
         profits = []
         position = 0.0
         avg_cost = 0.0
 
-        for trade in trades:
-            if trade.action == "BUY":
-                new_position = position + trade.shares
+        for i in range(len(actions)):
+            action = actions[i]
+            share = shares[i]
+            price = prices[i]
+            
+            if action == 1:  # BUY
+                new_position = position + share
                 avg_cost = (
-                    (position * avg_cost + trade.shares * trade.price) / new_position
-                    if new_position > 0 else trade.price
+                    (position * avg_cost + share * price) / new_position
+                    if new_position > 0 else price
                 )
                 position = new_position
             else:  # SELL
                 if position > 0:
-                    profit = (trade.price - avg_cost) * trade.shares
+                    profit = (price - avg_cost) * share
                     profits.append(profit)
-                    position -= trade.shares
+                    position -= share
                     if position <= 0:
                         position = 0.0
                         avg_cost = 0.0
 
         return profits
+
+    @staticmethod
+    @jit(nopython=True)
+    def _calculate_max_drawdown_numba(values):
+        """使用Numba加速的最大回撤计算"""
+        peak = values[0]
+        max_dd = 0.0
+        for val in values[1:]:
+            if val > peak:
+                peak = val
+            dd = (peak - val) / peak
+            if dd > max_dd:
+                max_dd = dd
+        return max_dd
+
+    @classmethod
+    def _calc_trade_profits(cls, trades: List[TradeRecord]) -> List[float]:
+        """配对买卖，计算每笔完整交易的盈亏金额"""
+        if not trades:
+            return []
+        
+        # 转换为Numba可处理的数组
+        actions = np.array([1 if trade.action == "BUY" else 0 for trade in trades], dtype=np.int32)
+        shares = np.array([trade.shares for trade in trades], dtype=np.float64)
+        prices = np.array([trade.price for trade in trades], dtype=np.float64)
+        
+        # 使用Numba加速计算
+        return cls._calc_trade_profits_numba(actions, shares, prices)
 
     @classmethod
     def _empty_metrics(cls) -> Dict[str, float]:

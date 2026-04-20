@@ -17,11 +17,17 @@
 
 import argparse
 import logging
-import os
 import sys
-import tkinter as tk
 from pathlib import Path
 from enum import Enum
+
+# ── 统一导入路径 ──────────────────────────────────────────────────────
+sys.path.insert(0, str(Path(__file__).parent / 'src'))
+
+from src.core.utils import setup_logging
+from src.core.exceptions import DataFetchError, DividendModeError, FrameworkError
+
+logger = setup_logging()
 
 # ── matplotlib 后端配置 ──────────────────────────────────────────────
 _no_ui = '--no-ui' in sys.argv
@@ -34,17 +40,10 @@ if not _no_ui:
 else:
     matplotlib.use('Agg')
 
-import matplotlib.pyplot as plt
-plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
-plt.rcParams['axes.unicode_minus'] = False
-
-# ── 统一导入路径 ──────────────────────────────────────────────────────
-sys.path.insert(0, str(Path(__file__).parent / 'src'))
-
-from src.core.utils import setup_logging
-from src.core.exceptions import DataFetchError, DividendModeError, FrameworkError
-
-logger = setup_logging()
+# 延迟导入matplotlib.pyplot，只在需要时导入
+# import matplotlib.pyplot as plt
+# plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+# plt.rcParams['axes.unicode_minus'] = False
 
 
 class AppMode(Enum):
@@ -153,103 +152,300 @@ def print_backtest_banner(args):
 
 def run_judgment_mode(args):
     """运行判断模式 - ETF技术分析"""
-    import tkinter as tk
-    from src.judgment.ui.main_window import MainWindow
-
-    print_judgment_banner(args)
-
-    root = tk.Tk()
-    root.title(f'量化工作室 - 判断模式 - {args.etf_code}')
-    root.geometry('1200x800')
-
     try:
+        import tkinter as tk
+        from src.judgment.ui.main_window import MainWindow
+
+        print_judgment_banner(args)
+
+        root = tk.Tk()
+        root.title(f'量化工作室 - 判断模式 - {args.etf_code}')
+        root.geometry('1200x800')
+
         app = MainWindow(root, args.etf_code, args.theme)
         root.mainloop()
+        return 0
     except Exception as e:
         logger.error(f"判断模式异常: {e}", exc_info=True)
         print(f"[ERROR] 判断模式异常: {e}")
         return 1
 
-    return 0
 
+def _get_fund_data(args):
+    """获取基金数据"""
+    from src.core.providers.akshare_provider import AkshareProvider
+    
+    provider = AkshareProvider()
+    print(f"[INFO] 数据源: {provider.get_name()}")
+
+    fund_data = provider.get_etf_history(
+        code=args.etf_code,
+        start=args.start_date,
+        end=args.end_date,
+    )
+    print(f"[OK]  获取完成: {fund_data.name} | {len(fund_data.df)} 条数据")
+    return fund_data, provider
+
+def _run_strategy_backtest(args, fund_data):
+    """运行策略回测"""
+    from src.core.models import StrategyConfig, TradeRule
+    from src.backtest.strategies.annual_line import AnnualLineStrategy
+    from src.backtest.engines.backtest import BacktestEngine
+    
+    buy_rule = TradeRule(
+        rule_id="buy_step_1",
+        trigger_type="bias_below",
+        threshold=args.buy_threshold,
+        action="BUY",
+        position_ratio=1.0,
+    )
+    sell_rule = TradeRule(
+        rule_id="sell_step_1",
+        trigger_type="bias_above",
+        threshold=args.sell_threshold,
+        action="SELL",
+        position_ratio=1.0,
+    )
+    config = StrategyConfig(
+        fund_code=args.etf_code,
+        start_date=args.start_date,
+        end_date=args.end_date,
+        init_cash=args.initial_capital,
+        dividend_mode=args.dividend_mode,
+        rules=[buy_rule, sell_rule],
+    )
+
+    strategy = AnnualLineStrategy(
+        name=f"年线策略(Bias<={args.buy_threshold}%)",
+        buy_rules=[config.rules[0]],
+        sell_rules=[config.rules[1]],
+    )
+    engine = BacktestEngine(strategy=strategy)
+    result = engine.run(config=config, fund_data=fund_data)
+    print(f"[OK]  回测完成: {len(result.trades)} 笔交易")
+    return result, config
+
+def _run_benchmark_comparison(config, result, fund_data, provider):
+    """运行基准对比"""
+    from src.backtest.engines.benchmark import BenchmarkEngine
+    
+    benchmark_engine = BenchmarkEngine()
+    compare_result = benchmark_engine.run_all(
+        config=config,
+        main_result=result,
+        fund_data=fund_data,
+        provider=provider,
+    )
+    print("[OK]  基准对比完成")
+    return compare_result
+
+def _generate_charts(args, fund_data, result, compare_result):
+    """生成图表"""
+    from src.core.visualizers import MainChart
+    from src.core.visualizers.compare import CompareChart
+    from src.core.visualizers.technical_chart import TechnicalChart
+    from src.core.visualizers.interactive_chart import InteractiveChart
+    from src.core.utils import generate_filename, ensure_dir
+    from pathlib import Path
+    import tempfile
+    
+    output_dir = ensure_dir(Path("output"))
+    temp_dir = ensure_dir(Path("temp"))
+
+    # 主分析图
+    main_chart = MainChart(theme=args.theme)
+    main_fig = main_chart.create(
+        df=fund_data.df,
+        result=result,
+        fund_code=args.etf_code,
+        fund_name=fund_data.name,
+    )
+    main_filename = generate_filename(prefix=f"fund_{args.etf_code}", ext="png")
+    main_path = output_dir / main_filename
+    
+    # 创建临时文件用于预览
+    main_temp_path = temp_dir / f"temp_{main_filename}"
+    main_chart.save(main_fig, main_temp_path)
+    
+    # 策略对比图
+    compare_chart = CompareChart(theme=args.theme)
+    compare_fig = compare_chart.create(compare_result=compare_result)
+    compare_filename = generate_filename(prefix=f"fund_{args.etf_code}_compare", ext="png")
+    compare_path = output_dir / compare_filename
+    
+    # 创建临时文件用于预览
+    compare_temp_path = temp_dir / f"temp_{compare_filename}"
+    compare_chart.save(compare_fig, compare_temp_path)
+    
+    # 技术分析图
+    technical_chart = TechnicalChart(theme=args.theme)
+    technical_fig = technical_chart.create(
+        df=fund_data.df,
+        result=result,
+        fund_code=args.etf_code,
+        fund_name=fund_data.name,
+    )
+    technical_filename = generate_filename(prefix=f"fund_{args.etf_code}_technical", ext="png")
+    technical_path = output_dir / technical_filename
+    
+    # 创建临时文件用于预览
+    technical_temp_path = temp_dir / f"temp_{technical_filename}"
+    technical_chart.save(technical_fig, technical_temp_path)
+    
+    # 交互式图表
+    interactive_chart = InteractiveChart(theme=args.theme)
+    interactive_fig = interactive_chart.create(
+        df=fund_data.df,
+        result=result,
+        fund_code=args.etf_code,
+        fund_name=fund_data.name,
+    )
+    interactive_filename = generate_filename(prefix=f"fund_{args.etf_code}_interactive", ext="html")
+    interactive_path = output_dir / interactive_filename
+    
+    print("[OK]  图表生成完成")
+    
+    # 保存图表生成函数，以便在需要时调用
+    def save_main_chart():
+        main_chart.save(main_fig, main_path)
+        return main_path
+    
+    def save_compare_chart():
+        compare_chart.save(compare_fig, compare_path)
+        return compare_path
+    
+    def save_technical_chart():
+        technical_chart.save(technical_fig, technical_path)
+        return technical_path
+    
+    def save_interactive_chart():
+        interactive_chart.save(interactive_fig, interactive_path, format='html')
+        return interactive_path
+    
+    return output_dir, main_path, compare_path, technical_path, interactive_path, save_main_chart, save_compare_chart, save_technical_chart, save_interactive_chart, main_temp_path, compare_temp_path, technical_temp_path
+
+def _show_dialogs(args, result, compare_result, output_dir, main_path, compare_path, technical_path, interactive_path, save_main_chart, save_compare_chart, save_technical_chart, save_interactive_chart, main_temp_path, compare_temp_path, technical_temp_path):
+    """展示弹窗"""
+    import tkinter as tk
+    from src.backtest.ui import ResultDialog, PreviewDialog
+    
+    # 弹窗计数和关闭状态跟踪
+    total_dialogs = 4  # 1个结果弹窗 + 3个图表弹窗
+    closed_dialogs = 0
+    save_operations = []
+    root = tk.Tk()
+    root.withdraw()
+
+    def save_single_image(save_func, path):
+        """保存单张图片"""
+        try:
+            saved_path = save_func()
+            print(f"[OK] 已保存: {saved_path}")
+            save_operations.append(saved_path)
+            return True
+        except Exception as e:
+            print(f"[ERROR] 保存图片失败: {e}")
+            return False
+
+    def on_save_image(save_func, path):
+        """保存单张图片"""
+        save_single_image(save_func, path)
+
+    def on_save_all():
+        """保存所有图片"""
+        print("[INFO] 开始保存所有图片...")
+        saved = 0
+        
+        # 保存主分析图
+        if save_single_image(save_main_chart, main_path):
+            saved += 1
+        
+        # 保存策略对比图
+        if save_single_image(save_compare_chart, compare_path):
+            saved += 1
+        
+        # 保存技术分析图
+        if save_single_image(save_technical_chart, technical_path):
+            saved += 1
+        
+        # 保存交互式图表
+        if save_single_image(save_interactive_chart, interactive_path):
+            saved += 1
+        
+        print(f"[OK] 已保存 {saved} 张图片")
+
+    def on_cancel():
+        """处理弹窗关闭"""
+        nonlocal closed_dialogs
+        closed_dialogs += 1
+        print(f"[INFO] 弹窗关闭，剩余 {total_dialogs - closed_dialogs} 个弹窗")
+        
+        # 当所有弹窗都关闭后，退出应用程序
+        if closed_dialogs >= total_dialogs:
+            print("[INFO] 所有弹窗已关闭，退出程序")
+            # 确保保存操作完成
+            if save_operations:
+                print(f"[INFO] 已完成 {len(save_operations)} 个保存操作")
+            root.quit()
+
+    # 创建结果弹窗
+    result_dialog = ResultDialog(parent=root)
+    result_dialog.show(
+        result=result,
+        on_save=on_save_all,  # 保存所有图片
+        on_cancel=on_cancel,
+        compare_result=compare_result,
+        output_dir=output_dir,
+        fund_code=args.etf_code,
+        start_date=args.start_date,
+        end_date=args.end_date,
+        modal=False,
+    )
+
+    # 创建图表弹窗
+    chart_data = [
+        (main_temp_path, "主分析图表", save_main_chart, main_path),
+        (compare_temp_path, "策略对比图", save_compare_chart, compare_path),
+        (technical_temp_path, "技术分析图", save_technical_chart, technical_path),
+    ]
+
+    for temp_path, title, save_func, final_path in chart_data:
+        preview = PreviewDialog(parent=root)
+        preview.show(
+            image_path=temp_path,
+            on_save=lambda p=final_path, sf=save_func: on_save_image(sf, p),
+            on_regenerate=lambda: print("[INFO] 重新生成图表"),
+            on_cancel=on_cancel,
+            title=title,
+            modal=False,
+        )
+
+    print(f"[OK]  共创建 {total_dialogs} 个弹窗")
+    try:
+        root.mainloop()
+    except KeyboardInterrupt:
+        pass
 
 def run_backtest_mode(args):
     """运行回测模式 - 量化回测分析"""
-    from src.core.models import StrategyConfig, TradeRule
-    from src.core.providers.akshare_provider import AkshareProvider
-    from src.backtest.strategies.annual_line import AnnualLineStrategy
-    from src.backtest.engines.backtest import BacktestEngine
-    from src.backtest.engines.benchmark import BenchmarkEngine
-    from src.core.visualizers import MainChart, get_theme
-    from src.core.visualizers.compare import CompareChart
-    from src.core.visualizers.technical_chart import TechnicalChart
-    from src.backtest.ui import ResultDialog, PreviewDialog, show_message
-    from src.core.utils import generate_filename, ensure_dir
-
-    print_backtest_banner(args)
-
     try:
+        print_backtest_banner(args)
+
         # 1. 数据获取
         print("\n" + "-" * 70)
         print("                         数据获取阶段")
         print("-" * 70)
-        provider = AkshareProvider()
-        print(f"[INFO] 数据源: {provider.get_name()}")
-
-        fund_data = provider.get_etf_history(
-            code=args.etf_code,
-            start=args.start_date,
-            end=args.end_date,
-        )
-        print(f"[OK]  获取完成: {fund_data.name} | {len(fund_data.df)} 条数据")
+        fund_data, provider = _get_fund_data(args)
 
         # 2. 策略配置 & 回测
         print("\n" + "-" * 70)
         print("                         策略回测阶段")
         print("-" * 70)
-
-        buy_rule = TradeRule(
-            rule_id="buy_step_1",
-            trigger_type="bias_below",
-            threshold=args.buy_threshold,
-            action="BUY",
-            position_ratio=1.0,
-        )
-        sell_rule = TradeRule(
-            rule_id="sell_step_1",
-            trigger_type="bias_above",
-            threshold=args.sell_threshold,
-            action="SELL",
-            position_ratio=1.0,
-        )
-        config = StrategyConfig(
-            fund_code=args.etf_code,
-            start_date=args.start_date,
-            end_date=args.end_date,
-            init_cash=args.initial_capital,
-            dividend_mode=args.dividend_mode,
-            rules=[buy_rule, sell_rule],
-        )
-
-        strategy = AnnualLineStrategy(
-            name=f"年线策略(Bias<={args.buy_threshold}%)",
-            buy_rules=[config.rules[0]],
-            sell_rules=[config.rules[1]],
-        )
-        engine = BacktestEngine(strategy=strategy)
-        result = engine.run(config=config, fund_data=fund_data)
-        print(f"[OK]  回测完成: {len(result.trades)} 笔交易")
+        result, config = _run_strategy_backtest(args, fund_data)
 
         # 3. 基准对比
         print("[INFO] 运行基准对比...")
-        benchmark_engine = BenchmarkEngine()
-        compare_result = benchmark_engine.run_all(
-            config=config,
-            main_result=result,
-            fund_data=fund_data,
-            provider=provider,
-        )
-        print("[OK]  基准对比完成")
+        compare_result = _run_benchmark_comparison(config, result, fund_data, provider)
 
         # 4. 打印结果
         print("\n" + "-" * 70)
@@ -267,107 +463,14 @@ def run_backtest_mode(args):
         print("\n" + "-" * 70)
         print("                         图表生成阶段")
         print("-" * 70)
-        output_dir = ensure_dir(Path("output"))
-
-        main_chart = MainChart(theme=args.theme)
-        fig = main_chart.create(
-            df=fund_data.df,
-            result=result,
-            fund_code=args.etf_code,
-            fund_name=fund_data.name,
+        print("[INFO] 正在生成图表...")
+        output_dir, main_path, compare_path, technical_path, interactive_path, save_main_chart, save_compare_chart, save_technical_chart, save_interactive_chart, main_temp_path, compare_temp_path, technical_temp_path = _generate_charts(
+            args, fund_data, result, compare_result
         )
-        main_filename = generate_filename(prefix=f"fund_{args.etf_code}", ext="png")
-        main_path = output_dir / main_filename
-        main_chart.save(fig, main_path)
-        print(f"[OK]  主分析图: {main_path}")
-
-        compare_chart = CompareChart(theme=args.theme)
-        compare_fig = compare_chart.create(compare_result=compare_result)
-        compare_filename = generate_filename(prefix=f"fund_{args.etf_code}_compare", ext="png")
-        compare_path = output_dir / compare_filename
-        compare_chart.save(compare_fig, compare_path)
-        print(f"[OK]  策略对比图: {compare_path}")
-
-        technical_chart = TechnicalChart(theme=args.theme)
-        technical_fig = technical_chart.create(
-            df=fund_data.df,
-            result=result,
-            fund_code=args.etf_code,
-            fund_name=fund_data.name,
-        )
-        technical_filename = generate_filename(prefix=f"fund_{args.etf_code}_technical", ext="png")
-        technical_path = output_dir / technical_filename
-        technical_chart.save(technical_fig, technical_path)
-        print(f"[OK]  技术分析图: {technical_path}")
 
         # 6. 弹窗展示
         if not args.no_ui:
-            # 弹窗计数和关闭状态跟踪
-            total_dialogs = 4  # 1个结果弹窗 + 3个图表弹窗
-            closed_dialogs = 0
-            save_operations = []
-
-            def on_save_image(image_path):
-                """保存单张图片"""
-                print(f"[OK] 已保存: {image_path}")
-                # 这里可以添加实际的保存逻辑
-                save_operations.append(image_path)
-
-            def on_cancel():
-                """处理弹窗关闭"""
-                nonlocal closed_dialogs
-                closed_dialogs += 1
-                print(f"[INFO] 弹窗关闭，剩余 {total_dialogs - closed_dialogs} 个弹窗")
-                
-                # 当所有弹窗都关闭后，退出应用程序
-                if closed_dialogs >= total_dialogs:
-                    print("[INFO] 所有弹窗已关闭，退出程序")
-                    # 确保保存操作完成
-                    if save_operations:
-                        print(f"[INFO] 已完成 {len(save_operations)} 个保存操作")
-                    root.quit()
-
-            root = tk.Tk()
-            root.withdraw()
-
-            # 创建结果弹窗
-            result_dialog = ResultDialog(parent=root)
-            result_win = result_dialog.show(
-                result=result,
-                compare_result=compare_result,
-                on_save=lambda: None,  # 不自动保存
-                on_cancel=on_cancel,
-                output_dir=output_dir,
-                fund_code=args.etf_code,
-                start_date=args.start_date,
-                end_date=args.end_date,
-                modal=False,
-            )
-
-            # 创建图表弹窗
-            chart_paths = [
-                (main_path, "主分析图表"),
-                (compare_path, "策略对比图"),
-                (technical_path, "技术分析图"),
-            ]
-
-            for path, title in chart_paths:
-                if path.exists():
-                    preview = PreviewDialog(parent=root)
-                    preview.show(
-                        image_path=path,
-                        title=title,
-                        on_save=lambda p=path: on_save_image(p),
-                        on_regenerate=lambda: print("[INFO] 重新生成图表"),
-                        on_cancel=on_cancel,
-                        modal=False,
-                    )
-
-            print(f"[OK]  共创建 {total_dialogs} 个弹窗")
-            try:
-                root.mainloop()
-            except KeyboardInterrupt:
-                pass
+            _show_dialogs(args, result, compare_result, output_dir, main_path, compare_path, technical_path, interactive_path, save_main_chart, save_compare_chart, save_technical_chart, save_interactive_chart, main_temp_path, compare_temp_path, technical_temp_path)
 
         print("\n" + "=" * 70)
         print("                          分析完成！")

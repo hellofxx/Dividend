@@ -90,7 +90,7 @@ class BacktestEngine:
         dividends = fund_data.dividends.copy() if fund_data.dividends is not None else pd.DataFrame()
 
         for _, row in df.iterrows():
-            self._process_day(row, dividends, config.dividend_mode, config.rules)
+            self._process_day(row, dividends, config.dividend_mode)
 
         # 期末结算
         if len(df) > 0:
@@ -132,7 +132,6 @@ class BacktestEngine:
         row: pd.Series,
         dividends: pd.DataFrame,
         dividend_mode: DividendMode,
-        rules,
     ) -> None:
         """处理单个交易日"""
         current_date = row['date']
@@ -159,6 +158,10 @@ class BacktestEngine:
                 self._execute_sell(rule, current_date, current_acc_nav)
 
         # 5. 记录资金曲线
+        self._record_equity_curve(current_date, current_nav)
+    
+    def _record_equity_curve(self, current_date, current_nav):
+        """记录资金曲线"""
         total_value = self._cash + self._shares * current_nav
         self._equity_curve.append({
             'date': current_date,

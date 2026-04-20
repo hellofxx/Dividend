@@ -2,8 +2,8 @@
 
 | 属性 | 内容 |
 |------|------|
-| 关联PRD | PRD v1.2 (量化工作室) |
-| 版本 | v1.2 |
+| 关联PRD | PRD v1.5 (量化工作室) |
+| 版本 | v1.5 |
 | 面向角色 | 后端开发、算法开发、测试工程师 |
 | 命名规范基准 | PEP 8 / Python 标准库结构 |
 
@@ -92,7 +92,6 @@ def main():
 │   │   │   └── signal_generator.py
 │   │   ├── charts/           # 图表组件
 │   │   │   ├── kline_chart.py
-│   │   │   ├── volume_chart.py
 │   │   │   ├── macd_chart.py
 │   │   │   ├── rsi_chart.py
 │   │   │   ├── kdj_chart.py
@@ -234,17 +233,35 @@ class BaseProvider(ABC):
 ```python
 class AkshareProvider(BaseProvider):
     def get_etf_history(self, code, start, end) -> FundData:
-        # 1. 优先前复权: ak.fund_etf_hist_em(symbol=code, adjust='qfq')
-        # 2. 降级不复权: ak.stock_zh_index_daily(symbol=f'sh{code}')
-        # 3. 计算 ma_250, bias
-        # 4. 缓存: cache/etf_{code}_raw.pkl (永久缓存 512890)
+        # 1. 检查缓存: 优先从本地缓存加载
+        # 2. 缓存数据处理: 检查日期范围覆盖情况
+        # 3. 数据获取: 优先前复权: ak.fund_etf_hist_em(symbol=code, adjust='qfq')
+        # 4. 降级机制: 失败时降级到 ak.stock_zh_index_daily(symbol=f'sh{code}')
+        # 5. 数据处理: 计算 ma_250, bias, 计算累计净值
+        # 6. 数据完整性校验: 检查数据连续性、字段完整性
+        # 7. 缓存更新: 保存到本地缓存 (永久缓存 512890)
         ...
 
     def get_index_history(self, code, start, end) -> IndexData:
-        # 1. 优先: ak.index_zh_a_hist(symbol=code)
-        # 2. 降级: ak.stock_zh_index_daily(symbol=f'sh{code}')
-        # 3. 计算 daily_return
-        # 4. 缓存: cache/index_{code}_raw.pkl (永久缓存 000300/000001)
+        # 1. 检查缓存: 优先从本地缓存加载
+        # 2. 缓存数据处理: 检查日期范围覆盖情况
+        # 3. 数据获取: 优先 ak.index_zh_a_hist(symbol=code)
+        # 4. 降级机制: 失败时降级到 ak.stock_zh_index_daily(symbol=f'sh{code}')
+        # 5. 数据处理: 计算 daily_return
+        # 6. 数据完整性校验: 检查数据连续性、字段完整性
+        # 7. 缓存更新: 保存到本地缓存 (永久缓存 000300/000001)
+        ...
+
+    def _load_from_cache(self, cache_path, code=None, ignore_expiry=False):
+        # 缓存加载逻辑: 检查文件存在、过期时间、数据完整性
+        ...
+
+    def _save_to_cache(self, cache_path, df):
+        # 缓存保存逻辑: 数据完整性检查、异常处理
+        ...
+
+    def _check_date_range(self, df, start, end):
+        # 日期范围检查: 验证缓存数据是否覆盖请求范围
         ...
 ```
 
@@ -382,18 +399,18 @@ THEME_PRESETS = {
 
 ### 9.2 回测模式图表
 
-| 图表 | 文件 | 内容 |
-|------|------|------|
-| 主分析图 | main_chart.py | 净值走势+年线+买卖点、收益曲线 |
-| 策略对比图 | compare.py | 五线叠加（主策略/一次性/定投/沪深300/上证） |
-| 技术分析图 | technical_chart.py | 6指标图表区 + 左侧信息栏 |
+| 图表 | 文件 | 内容 | 技术实现 |
+|------|------|------|----------|
+| 主分析图 | main_chart.py | 净值走势+年线+买卖点、收益曲线 | matplotlib |
+| 策略对比图 | compare.py | 五线叠加（主策略/一次性/定投/沪深300/上证） | seaborn增强美观度 |
+| 技术分析图 | technical_chart.py | 6指标图表区 + 左侧信息栏 | pandas_ta计算指标 |
+| 交互式图表 | interactive_chart.py | 交互式净值走势和技术指标 | Plotly |
 
 ### 9.3 判断模式图表
 
 | 图表 | 文件 | 内容 |
 |------|------|------|
-| K线图 | kline_chart.py | K线走势 + BIAS |
-| 成交量图 | volume_chart.py | 成交量柱状图 |
+| K线图 | kline_chart.py | K线走势 + BIAS + 年线，以数据起始点为基准值1 |
 | MACD图 | macd_chart.py | DIF/DEA/MACD柱状线 |
 | RSI图 | rsi_chart.py | RSI指标 |
 | KDJ图 | kdj_chart.py | K/D/J三线 |
@@ -407,8 +424,9 @@ THEME_PRESETS = {
 
 ```python
 class ResultDialog:
-    def show(self, result, compare_result, on_save, on_cancel, ...):
+    def show(self, result, compare_result, on_save, on_save_all, on_cancel, ...):
         # 结果汇总弹窗
+        # 包含"保存所有图片"按钮
         ...
 
 class PreviewDialog:
@@ -436,7 +454,7 @@ class InfoPanel(ttk.Frame):
     ...
 
 class ChartPanel(ttk.Frame):
-    # 右侧6图表: K线、成交量、MACD、RSI、KDJ、布林带
+    # 右侧5图表: K线、MACD、RSI、KDJ、布林带
     ...
 ```
 
@@ -518,7 +536,17 @@ plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
 plt.rcParams['axes.unicode_minus'] = False
 ```
 
-### 13.3 终端字符
+### 13.3 性能优化依赖
+
+| 依赖包 | 版本 | 用途 |
+|--------|------|------|
+| numba | 0.60.0+ | 加速计算密集型操作 |
+| plotly | 5.24.0+ | 交互式图表可视化 |
+| pandas_ta | 0.3.14+ | 技术指标计算 |
+| seaborn | 0.13.0+ | 增强图表美观度 |
+| cufflinks | 0.17.3+ | 数据框交互式可视化（备用） |
+
+### 13.4 终端字符
 
 使用 `[OK]/[ERROR]/[WARN]` 代替特殊符号。
 
@@ -548,6 +576,9 @@ tests/
 | DCA收益率测试 | 收益率基于actual_invested | 计算正确 |
 | 超额收益测试 | 主策略-沪深300 | 差值正确 |
 | 多因子判定测试 | 3个买入因子触发 | 信号正确 |
+| 技术指标计算测试 | pandas_ta计算MACD、RSI、KDJ | 计算结果准确，异常时降级 |
+| 图表生成测试 | seaborn和Plotly图表生成 | 图表美观，交互流畅 |
+| 性能测试 | 技术指标计算和图表生成时间 | 计算时间<0.5秒，图表生成<3秒 |
 
 ---
 

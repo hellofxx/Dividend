@@ -31,7 +31,7 @@ class ResultDialog:
         self.result: Optional[BacktestResult] = None
         self.compare_result: Optional[CompareResult] = None
         self.on_save: Optional[Callable[[], None]] = None
-        self.dialog: Optional[tk.Toplevel] = None
+        self.dialog: Optional[tk.Tk | tk.Toplevel] = None
         self.output_dir: Optional[Path] = None
 
     def show(
@@ -45,7 +45,7 @@ class ResultDialog:
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         modal: bool = True,
-    ) -> tk.Toplevel:
+    ) -> tk.Tk | tk.Toplevel:
         """
         显示结果弹窗
         
@@ -148,9 +148,9 @@ class ResultDialog:
         strategy_frame.pack(fill=tk.X, padx=8, pady=2)
 
         # 获取实际日期范围
-        if self.result and hasattr(self.result, 'dates') and len(self.result.dates) > 0:
-            actual_start = self.result.dates[0].strftime('%Y-%m-%d')
-            actual_end = self.result.dates[-1].strftime('%Y-%m-%d')
+        if self.result and hasattr(self.result, 'equity_curve') and not self.result.equity_curve.empty:
+            actual_start = self.result.equity_curve['date'].min().strftime('%Y-%m-%d')
+            actual_end = self.result.equity_curve['date'].max().strftime('%Y-%m-%d')
         else:
             actual_start = start_date or "2022-01-01"
             actual_end = end_date or datetime.now().strftime('%Y-%m-%d')
@@ -299,9 +299,12 @@ class ResultDialog:
             }
 
         # 从 CompareResult 获取沪深300数据（如果有）
-        if hasattr(self.compare_result, 'index_return'):
-            hs300_return = self.compare_result.index_return
-        elif hasattr(self.result, 'metrics') and 'hs300_return' in self.result.metrics:
+        if self.compare_result and hasattr(self.compare_result, 'index_curve') and self.compare_result.index_curve is not None and not self.compare_result.index_curve.empty:
+            # 计算沪深300收益率
+            start_value = self.compare_result.index_curve['total_value'].iloc[0]
+            end_value = self.compare_result.index_curve['total_value'].iloc[-1]
+            hs300_return = ((end_value - start_value) / start_value) * 100
+        elif self.result and hasattr(self.result, 'metrics') and 'hs300_return' in self.result.metrics:
             hs300_return = self.result.metrics['hs300_return']
 
         # 表头行
@@ -356,7 +359,7 @@ class ResultDialog:
     
     def _fill_risk_content(self, parent: tk.Widget) -> None:
         """填充风险指标内容 - 2x2网格布局"""
-        metrics = self.result.metrics
+        metrics = self.result.metrics if self.result and hasattr(self.result, 'metrics') else {}
         
         # 使用 grid 布局：2列 x 2行
         items = [
@@ -397,7 +400,7 @@ class ResultDialog:
     
     def _fill_return_content(self, parent: tk.Widget) -> None:
         """填充累计收益分解内容"""
-        metrics = self.result.metrics
+        metrics = self.result.metrics if self.result and hasattr(self.result, 'metrics') else {}
         
         items = [
             ("净值收益率", f"{metrics.get('nav_return', 0):.2f}%"),
@@ -423,7 +426,7 @@ class ResultDialog:
     
     def _fill_annual_content(self, parent: tk.Widget) -> None:
         """填充年化收益分解内容"""
-        metrics = self.result.metrics
+        metrics = self.result.metrics if self.result and hasattr(self.result, 'metrics') else {}
         
         items = [
             ("净值年化", f"{metrics.get('annual_nav_return', 0):.2f}%"),
@@ -452,9 +455,9 @@ class ResultDialog:
                                    end_date: Optional[str]) -> str:
         """获取策略描述"""
         # 获取实际日期范围
-        if self.result and hasattr(self.result, 'dates') and len(self.result.dates) > 0:
-            actual_start = self.result.dates[0].strftime('%Y-%m-%d')
-            actual_end = self.result.dates[-1].strftime('%Y-%m-%d')
+        if self.result and hasattr(self.result, 'equity_curve') and not self.result.equity_curve.empty:
+            actual_start = self.result.equity_curve['date'].min().strftime('%Y-%m-%d')
+            actual_end = self.result.equity_curve['date'].max().strftime('%Y-%m-%d')
         else:
             actual_start = start_date or "2022-01-01"
             actual_end = end_date or datetime.now().strftime('%Y-%m-%d')
@@ -491,13 +494,14 @@ class ResultDialog:
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
         # 插入交易记录 - 金额放在买入卖出之后，价格之前
-        if len(self.result.trades) == 0:
+        trades = self.result.trades if self.result and hasattr(self.result, 'trades') else []
+        if len(trades) == 0:
             text.insert(tk.END, "无交易记录\n")
         else:
-            text.insert(tk.END, f"共 {len(self.result.trades)} 笔交易\n")
+            text.insert(tk.END, f"共 {len(trades)} 笔交易\n")
             text.insert(tk.END, "-" * 65 + "\n")
             
-            for trade in self.result.trades:
+            for trade in trades:
                 action_str = "买入" if trade.action == "BUY" else "卖出"
                 amount = trade.price * trade.shares
                 text.insert(
@@ -521,7 +525,7 @@ class ResultDialog:
         
         ttk.Button(
             frame,
-            text="保存图表并退出",
+            text="保存所有图片",
             command=self._on_save_click,
         ).pack(side=tk.RIGHT, padx=5)
         
@@ -596,9 +600,10 @@ class PreviewDialog:
     
     def __init__(self, parent: Optional[tk.Tk] = None):
         self.parent = parent
-        self.dialog: Optional[tk.Toplevel] = None
+        self.dialog: Optional[tk.Tk | tk.Toplevel] = None
         self.image_path: Optional[Path] = None
         self._instance_id: Optional[int] = None
+        self._fig = None  # 存储matplotlib图表对象
     
     def show(
         self,
@@ -608,7 +613,8 @@ class PreviewDialog:
         on_cancel: Callable[[], None],
         title: str = "图表预览",
         modal: bool = False,
-    ) -> tk.Toplevel:
+        fig=None,  # 添加图表对象参数
+    ) -> tk.Tk | tk.Toplevel:
         """
         显示预览弹窗
         
@@ -619,11 +625,13 @@ class PreviewDialog:
             on_cancel: 取消按钮回调
             title: 弹窗标题
             modal: 是否模态（默认False，可同时显示多个弹窗）
+            fig: matplotlib图表对象（可选）
         
         Returns:
             创建的弹窗对象
         """
         self.image_path = image_path
+        self._fig = fig
         
         # 创建弹窗
         if self.parent is None:
@@ -709,12 +717,29 @@ class PreviewDialog:
         self._img_label = tk.Label(self._img_frame, bg='#f5f5f5')
         self._img_label.pack(fill=tk.BOTH, expand=True)
 
-        # 加载原始图片
+        # 加载原始图片或使用图表对象
         try:
             from PIL import Image as PILImage
-            self._original_img = PILImage.open(self.image_path)
-            self._img_w, self._img_h = self._original_img.size
-            self._photo = None
+            import io
+            
+            if self._fig is not None:
+                # 使用图表对象生成图片
+                buf = io.BytesIO()
+                self._fig.savefig(buf, format='png', dpi=100, bbox_inches='tight')
+                buf.seek(0)
+                self._original_img = PILImage.open(buf)
+                self._img_w, self._img_h = self._original_img.size
+                self._photo = None
+            elif self.image_path:
+                # 尝试从文件加载图片
+                self._original_img = PILImage.open(self.image_path)
+                self._img_w, self._img_h = self._original_img.size
+                self._photo = None
+            else:
+                # 无法加载图片
+                self._original_img = None
+                self._img_w, self._img_h = 0, 0
+                self._photo = None
         except Exception as e:
             logger.error(f"加载图片失败: {e}")
             self._original_img = None
@@ -762,7 +787,7 @@ class PreviewDialog:
 
     def _on_dialog_configure(self, event) -> None:
         """弹窗大小变化时重绘图片（拖拽时快速渲染，停止后高质量）"""
-        if event.widget != self.dialog:
+        if not self.dialog or event.widget != self.dialog:
             # 忽略子组件的 Configure 事件（只响应窗口级）
             return
         if event.width < 50 or event.height < 50:

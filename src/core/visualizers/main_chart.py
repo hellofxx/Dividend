@@ -11,7 +11,7 @@ from typing import List, TYPE_CHECKING
 import pandas as pd
 
 from ..models import BacktestResult, TradeRecord
-from .themes import ThemeConfig, get_theme
+from .themes import get_theme
 
 if TYPE_CHECKING:
     import matplotlib.pyplot as plt
@@ -35,6 +35,10 @@ class MainChart:
     def _apply_theme(self):
         """应用主题到matplotlib（懒加载）"""
         import matplotlib.pyplot as plt
+        # 确保中文字体正确设置
+        plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+        plt.rcParams['axes.unicode_minus'] = False
+        # 应用主题颜色
         plt.rcParams['figure.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.edgecolor'] = self.theme.text_color
@@ -59,19 +63,19 @@ class MainChart:
         fig = plt.figure(figsize=(14, 8))
         
         # 主图区域: 净值走势 (左上)
-        ax_nav = fig.add_axes([0.08, 0.55, 0.55, 0.38])
+        ax_nav = fig.add_axes((0.08, 0.55, 0.55, 0.38))
         self._plot_nav(ax_nav, df, result.trades, fund_code, fund_name)
         
         # 副图1: 乖离率 (左中)
-        ax_bias = fig.add_axes([0.08, 0.32, 0.55, 0.20], sharex=ax_nav)
+        ax_bias = fig.add_axes((0.08, 0.32, 0.55, 0.20), sharex=ax_nav)
         self._plot_bias(ax_bias, df)
         
         # 副图2: 收益曲线 (左下)
-        ax_equity = fig.add_axes([0.08, 0.08, 0.55, 0.20], sharex=ax_nav)
+        ax_equity = fig.add_axes((0.08, 0.08, 0.55, 0.20), sharex=ax_nav)
         self._plot_equity(ax_equity, result)
         
         # 右侧: 核心指标面板
-        ax_metrics = fig.add_axes([0.68, 0.08, 0.28, 0.85])
+        ax_metrics = fig.add_axes((0.68, 0.08, 0.28, 0.85))
         self._plot_metrics_panel(ax_metrics, result, fund_code, fund_name)
         
         return fig

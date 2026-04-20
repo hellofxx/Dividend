@@ -46,7 +46,7 @@ class BenchmarkEngine:
         config: StrategyConfig,
         main_result: BacktestResult,
         fund_data: FundData,
-        provider: AkshareProvider = None,
+        provider: Optional[AkshareProvider] = None,
     ) -> CompareResult:
         """
         运行所有基准并生成对比结果
@@ -160,7 +160,8 @@ class BenchmarkEngine:
         monthly_groups = df.groupby('year_month')
         buy_schedule = []
 
-        for period, group in sorted(monthly_groups, key=lambda x: x[0]):
+        # 转换为列表后排序
+        for period, group in sorted(list(monthly_groups), key=lambda x: str(x[0])):
             first_row = group.iloc[0]
             buy_date = first_row['date']
             nav = float(first_row['nav'])
@@ -247,6 +248,10 @@ class BenchmarkEngine:
                 start=config.start_date,
                 end=config.end_date,
             )
+            
+            if index_data is None or index_data.df is None:
+                logger.warning("获取沪深300数据失败，数据为空")
+                return None
 
             df = self._filter_date(index_data.df, config.start_date, config.end_date)
             if len(df) == 0:
@@ -280,6 +285,10 @@ class BenchmarkEngine:
                 start=config.start_date,
                 end=config.end_date,
             )
+            
+            if index_data is None or index_data.df is None:
+                logger.warning("获取上证指数数据失败，数据为空")
+                return None
 
             df = self._filter_date(index_data.df, config.start_date, config.end_date)
             if len(df) == 0:
@@ -318,6 +327,12 @@ class BenchmarkEngine:
             ("一次性买入", buy_hold.equity_curve),
             ("定期定额", dca.equity_curve),
         ]
+        
+        # 添加指数对比
+        if index_curve is not None:
+            strategies.append(("沪深300(同期)", index_curve))
+        if shanghai_curve is not None:
+            strategies.append(("上证指数(同期)", shanghai_curve))
         
         return BenchmarkMetrics.build_compare_table(
             strategies=strategies,

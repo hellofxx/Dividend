@@ -1,166 +1,592 @@
-2026-04-17 16:39:14,091 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:39:14,092 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:39:14,096 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:39:14,104 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:39:14,104 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
-2026-04-17 16:39:14,107 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:39:14,120 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:39:14,139 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:39:14,149 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:39:14,151 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
-2026-04-17 16:39:14,159 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
-2026-04-17 16:39:14,159 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
-2026-04-17 16:39:14,167 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
-2026-04-17 16:39:14,170 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
-2026-04-17 16:39:14,182 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:39:14,237 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
-2026-04-17 16:39:14,305 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
-2026-04-17 16:39:14,305 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:39:14,308 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:39:14,309 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:39:14,314 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:39:14,373 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
-2026-04-17 16:39:14,374 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:39:14,376 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:39:14,379 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:39:14,384 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:39:14,441 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
-2026-04-17 16:39:14,449 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:39:14,981 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_163914.png
-2026-04-17 16:39:15,454 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_163915.png
-2026-04-17 16:39:17,398 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_163916.png
-2026-04-17 16:43:27,855 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:43:27,859 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:43:27,868 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:43:27,879 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 726 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:43:27,879 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-4.63%, std=18.39%
-2026-04-17 16:43:27,882 - src.backtest.engines.backtest - INFO - 开始回测: 726 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:43:27,897 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:43:27,923 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:43:27,937 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:43:27,942 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:43:27,981 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -30.76% | 年化 -11.60%
-2026-04-17 16:43:28,021 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 36 次 | 月投 10000 元/月 | 累计收益率 -5.81%
-2026-04-17 16:43:28,021 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:43:28,024 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:43:28,027 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:43:28,033 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:43:28,073 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -34.87%
-2026-04-17 16:43:28,073 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:43:28,076 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:43:28,079 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:43:28,084 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:43:28,129 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -15.07%
-2026-04-17 16:43:28,136 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:43:28,757 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_164328.png
-2026-04-17 16:43:29,331 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_164328.png
-2026-04-17 16:43:31,228 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_164329.png
-2026-04-17 16:45:22,918 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:45:22,921 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:45:22,925 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:45:22,933 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 726 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:45:22,933 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-4.63%, std=18.39%
-2026-04-17 16:45:22,935 - src.backtest.engines.backtest - INFO - 开始回测: 726 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:45:22,946 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:45:22,967 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:45:22,976 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:45:22,981 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:45:23,015 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -30.76% | 年化 -11.60%
-2026-04-17 16:45:23,057 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 36 次 | 月投 10000 元/月 | 累计收益率 -5.81%
-2026-04-17 16:45:23,058 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:45:23,060 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:45:23,062 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:45:23,066 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:45:23,100 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -34.87%
-2026-04-17 16:45:23,101 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:45:23,104 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:45:23,106 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:45:23,111 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:45:23,145 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -15.07%
-2026-04-17 16:45:23,153 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:45:23,862 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_164523.png
-2026-04-17 16:45:24,486 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_164524.png
-2026-04-17 16:45:26,771 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_164525.png
-2026-04-17 16:46:17,082 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:46:17,084 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:46:17,088 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:46:17,095 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 726 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:46:17,095 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-4.63%, std=18.39%
-2026-04-17 16:46:17,097 - src.backtest.engines.backtest - INFO - 开始回测: 726 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:46:17,108 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:46:17,128 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:46:17,138 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:46:17,144 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:46:17,185 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -30.76% | 年化 -11.60%
-2026-04-17 16:46:17,229 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 36 次 | 月投 10000 元/月 | 累计收益率 -5.81%
-2026-04-17 16:46:17,230 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:46:17,233 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:46:17,235 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:46:17,240 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:46:17,274 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -34.87%
-2026-04-17 16:46:17,275 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:46:17,279 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:46:17,283 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:46:17,287 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:46:17,321 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -15.07%
-2026-04-17 16:46:17,327 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:46:17,978 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_164617.png
-2026-04-17 16:46:18,555 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_164618.png
-2026-04-17 16:46:20,247 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_164619.png
-2026-04-17 16:47:35,691 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:47:35,693 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:47:35,697 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:47:35,704 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 726 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:47:35,704 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-4.63%, std=18.39%
-2026-04-17 16:47:35,707 - src.backtest.engines.backtest - INFO - 开始回测: 726 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:47:35,717 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:47:35,738 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:47:35,746 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:47:35,751 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:47:35,788 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -30.76% | 年化 -11.60%
-2026-04-17 16:47:35,829 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 36 次 | 月投 10000 元/月 | 累计收益率 -5.81%
-2026-04-17 16:47:35,829 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:47:35,832 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:47:35,834 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:47:35,840 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:47:35,882 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -34.87%
-2026-04-17 16:47:35,882 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2023-12-31
-2026-04-17 16:47:35,886 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:47:35,888 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:47:35,893 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 727 条 (2021-01-04 ~ 2023-12-29)
-2026-04-17 16:47:35,927 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -15.07%
-2026-04-17 16:47:35,934 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:47:36,601 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_164736.png
-2026-04-17 16:47:37,235 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_164736.png
-2026-04-17 16:47:39,216 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_164737.png
-2026-04-17 16:48:40,553 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:48:40,555 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天
-2026-04-17 16:48:40,559 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
-2026-04-17 16:48:40,565 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:48:40,565 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
-2026-04-17 16:48:40,569 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
-2026-04-17 16:48:40,581 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
-2026-04-17 16:48:40,602 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
-2026-04-17 16:48:40,611 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
-2026-04-17 16:48:40,613 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
-2026-04-17 16:48:40,621 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
-2026-04-17 16:48:40,622 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
-2026-04-17 16:48:40,629 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
-2026-04-17 16:48:40,631 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
-2026-04-17 16:48:40,644 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
-2026-04-17 16:48:40,697 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
-2026-04-17 16:48:40,761 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
-2026-04-17 16:48:40,761 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:48:40,764 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:48:40,765 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5886 条
-2026-04-17 16:48:40,769 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:48:40,823 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
-2026-04-17 16:48:40,823 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
-2026-04-17 16:48:40,826 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 3天
-2026-04-17 16:48:40,828 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8619 条
-2026-04-17 16:48:40,835 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
-2026-04-17 16:48:40,890 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
-2026-04-17 16:48:40,897 - src.backtest.engines.benchmark - INFO - 基准对比完成
-2026-04-17 16:48:41,450 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_164841.png
-2026-04-17 16:48:41,957 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_164841.png
-2026-04-17 16:48:43,907 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_164842.png
+2026-04-17 18:07:46,227 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:07:46,235 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1753 条
+2026-04-17 18:07:46,251 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1753 条
+2026-04-17 18:07:46,272 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:07:46,273 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
+2026-04-17 18:07:46,317 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-17 18:07:46,331 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
+2026-04-17 18:07:46,358 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
+2026-04-17 18:07:46,370 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
+2026-04-17 18:07:46,373 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
+2026-04-17 18:07:46,381 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
+2026-04-17 18:07:46,383 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
+2026-04-17 18:07:46,391 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
+2026-04-17 18:07:46,394 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
+2026-04-17 18:07:46,419 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-17 18:07:46,519 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
+2026-04-17 18:07:46,647 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
+2026-04-17 18:07:46,648 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:07:46,651 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5889 条
+2026-04-17 18:07:46,654 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-16
+2026-04-17 18:07:46,654 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2025-12-31
+2026-04-17 18:07:46,654 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5889 条
+2026-04-17 18:07:46,664 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:07:46,743 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-17 18:07:46,743 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:07:46,746 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8622 条
+2026-04-17 18:07:46,749 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-16
+2026-04-17 18:07:46,749 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2025-12-31
+2026-04-17 18:07:46,749 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8622 条
+2026-04-17 18:07:46,758 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:07:46,834 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-17 18:07:46,846 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-17 18:07:47,561 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_180747.png
+2026-04-17 18:07:48,149 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_180747.png
+2026-04-17 18:07:50,201 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_180748.png
+2026-04-17 18:09:34,168 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2026-04-17
+2026-04-17 18:09:34,168 - src.core.providers.akshare_provider - INFO - 缓存文件不存在: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl
+2026-04-17 18:09:35,524 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-17 18:09:36,102 - src.core.providers.akshare_provider - INFO - fund_etf_hist_em 获取成功: 1279 条
+2026-04-17 18:09:36,104 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1279条）
+2026-04-17 18:09:36,123 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1279 条 (2021-01-04 ~ 2026-04-17)
+2026-04-17 18:09:36,123 - src.core.providers.akshare_provider - INFO - bias 统计: mean=5.37%, std=3.96%
+2026-04-17 18:09:36,139 - src.backtest.engines.backtest - INFO - 开始回测: 1279 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-17 18:09:36,141 - src.backtest.engines.backtest - INFO - 买入: 2021-01-04 00:00:00 @ 0.6600 | 份额 151515.15 | 剩余现金 -0.00
+2026-04-17 18:09:36,150 - src.backtest.engines.backtest - INFO - 卖出: 2021-05-31 00:00:00 @ 0.7690 | 份额 151515.15 | 剩余现金 116515.15
+2026-04-17 18:09:36,154 - src.backtest.engines.backtest - INFO - 买入: 2021-07-27 00:00:00 @ 0.7110 | 份额 163875.04 | 剩余现金 0.00
+2026-04-17 18:09:36,156 - src.backtest.engines.backtest - INFO - 卖出: 2021-08-31 00:00:00 @ 0.8000 | 份额 163875.04 | 剩余现金 131100.03
+2026-04-17 18:09:36,173 - src.backtest.engines.backtest - INFO - 买入: 2022-03-15 00:00:00 @ 0.7470 | 份额 175502.05 | 剩余现金 0.00
+2026-04-17 18:09:36,174 - src.backtest.engines.backtest - INFO - 卖出: 2022-04-01 00:00:00 @ 0.8550 | 份额 175502.05 | 剩余现金 150054.25
+2026-04-17 18:09:36,193 - src.backtest.engines.backtest - INFO - 买入: 2022-08-02 00:00:00 @ 0.8010 | 份额 187333.65 | 剩余现金 0.00
+2026-04-17 18:09:36,209 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 187333.65 | 剩余现金 174032.96
+2026-04-17 18:09:36,232 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 191666.25 | 剩余现金 0.00
+2026-04-17 18:09:36,238 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 191666.25 | 剩余现金 195691.24
+2026-04-17 18:09:36,255 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 197667.92 | 剩余现金 0.00
+2026-04-17 18:09:36,258 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 197667.92 | 剩余现金 222771.75
+2026-04-17 18:09:36,274 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 209371.95 | 剩余现金 0.00
+2026-04-17 18:09:36,285 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 209371.95 | 剩余现金 251455.71
+2026-04-17 18:09:36,299 - src.backtest.engines.backtest - INFO - 买入: 2026-01-14 00:00:00 @ 1.1560 | 份额 217522.24 | 剩余现金 0.00
+2026-04-17 18:09:36,313 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-17 18:09:36,396 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 79.39% | 年化 11.70%
+2026-04-17 18:09:36,494 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 64 次 | 月投 10000 元/月 | 累计收益率 28.55%
+2026-04-17 18:09:36,494 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2026-04-17
+2026-04-17 18:09:36,499 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5889 条
+2026-04-17 18:09:36,502 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-16
+2026-04-17 18:09:36,502 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2026-04-17
+2026-04-17 18:09:36,502 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-17 18:10:03,373 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 1280 条
+2026-04-17 18:10:03,377 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（1280条）
+2026-04-17 18:10:03,388 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1280 条 (2021-01-04 ~ 2026-04-17)
+2026-04-17 18:10:03,477 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -10.23%
+2026-04-17 18:10:03,478 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2026-04-17
+2026-04-17 18:10:03,482 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8622 条
+2026-04-17 18:10:03,486 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-16
+2026-04-17 18:10:03,486 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2026-04-17
+2026-04-17 18:10:03,486 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-17 18:10:04,330 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 1280 条
+2026-04-17 18:10:04,332 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（1280条）
+2026-04-17 18:10:04,340 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1280 条 (2021-01-04 ~ 2026-04-17)
+2026-04-17 18:10:04,404 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 15.66%
+2026-04-17 18:10:04,416 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-17 18:10:05,082 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_181004.png
+2026-04-17 18:10:05,735 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_181005.png
+2026-04-17 18:10:07,855 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_181006.png
+2026-04-17 18:13:51,923 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-12-31
+2026-04-17 18:13:51,925 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1279 条
+2026-04-17 18:13:51,931 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2021-01-04 ~ 2026-04-17
+2026-04-17 18:13:51,934 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 242 条
+2026-04-17 18:13:51,934 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-17 18:13:52,831 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-17 18:13:53,264 - src.core.providers.akshare_provider - INFO - fund_etf_hist_em 获取成功: 242 条
+2026-04-17 18:13:53,266 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（242条）
+2026-04-17 18:13:53,278 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2021-01-04 ~ 2021-12-31)
+2026-04-17 18:13:53,278 - src.core.providers.akshare_provider - INFO - bias 统计: mean=5.38%, std=4.61%
+2026-04-17 18:13:53,294 - src.backtest.engines.backtest - INFO - 开始回测: 242 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-17 18:13:53,297 - src.backtest.engines.backtest - INFO - 买入: 2021-01-04 00:00:00 @ 0.6600 | 份额 151515.15 | 剩余现金 -0.00
+2026-04-17 18:13:53,304 - src.backtest.engines.backtest - INFO - 卖出: 2021-05-31 00:00:00 @ 0.7690 | 份额 151515.15 | 剩余现金 116515.15
+2026-04-17 18:13:53,307 - src.backtest.engines.backtest - INFO - 买入: 2021-07-27 00:00:00 @ 0.7110 | 份额 163875.04 | 剩余现金 0.00
+2026-04-17 18:13:53,308 - src.backtest.engines.backtest - INFO - 卖出: 2021-08-31 00:00:00 @ 0.8000 | 份额 163875.04 | 剩余现金 131100.03
+2026-04-17 18:13:53,319 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-17 18:13:53,334 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 20.45% | 年化 20.72%
+2026-04-17 18:13:53,355 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 12 次 | 月投 10000 元/月 | 累计收益率 8.76%
+2026-04-17 18:13:53,355 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-12-31
+2026-04-17 18:13:53,356 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1280 条
+2026-04-17 18:13:53,359 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2026-04-17
+2026-04-17 18:13:53,359 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-17 18:13:53,359 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-17 18:14:17,501 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 243 条
+2026-04-17 18:14:17,502 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（243条）
+2026-04-17 18:14:17,513 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-17 18:14:17,530 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -6.21%
+2026-04-17 18:14:17,531 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-12-31
+2026-04-17 18:14:17,532 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1280 条
+2026-04-17 18:14:17,533 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2026-04-17
+2026-04-17 18:14:17,533 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-17 18:14:17,533 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-17 18:14:18,355 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 243 条
+2026-04-17 18:14:18,357 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（243条）
+2026-04-17 18:14:18,367 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-17 18:14:18,386 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 3.91%
+2026-04-17 18:14:18,397 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-17 18:14:19,212 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_181418.png
+2026-04-17 18:14:19,785 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_181419.png
+2026-04-17 18:14:21,198 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_181420.png
+2026-04-17 18:15:23,930 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:15:23,931 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 242 条
+2026-04-17 18:15:23,936 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2021-01-04 ~ 2021-12-31
+2026-04-17 18:15:23,938 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 242 条
+2026-04-17 18:15:23,938 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-17 18:15:24,572 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-17 18:15:25,125 - src.core.providers.akshare_provider - INFO - fund_etf_hist_em 获取成功: 1211 条
+2026-04-17 18:15:25,127 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1211条）
+2026-04-17 18:15:25,140 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:15:25,140 - src.core.providers.akshare_provider - INFO - bias 统计: mean=5.62%, std=3.91%
+2026-04-17 18:15:25,151 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-17 18:15:25,153 - src.backtest.engines.backtest - INFO - 买入: 2021-01-04 00:00:00 @ 0.6600 | 份额 151515.15 | 剩余现金 -0.00
+2026-04-17 18:15:25,159 - src.backtest.engines.backtest - INFO - 卖出: 2021-05-31 00:00:00 @ 0.7690 | 份额 151515.15 | 剩余现金 116515.15
+2026-04-17 18:15:25,161 - src.backtest.engines.backtest - INFO - 买入: 2021-07-27 00:00:00 @ 0.7110 | 份额 163875.04 | 剩余现金 0.00
+2026-04-17 18:15:25,162 - src.backtest.engines.backtest - INFO - 卖出: 2021-08-31 00:00:00 @ 0.8000 | 份额 163875.04 | 剩余现金 131100.03
+2026-04-17 18:15:25,172 - src.backtest.engines.backtest - INFO - 买入: 2022-03-15 00:00:00 @ 0.7470 | 份额 175502.05 | 剩余现金 0.00
+2026-04-17 18:15:25,173 - src.backtest.engines.backtest - INFO - 卖出: 2022-04-01 00:00:00 @ 0.8550 | 份额 175502.05 | 剩余现金 150054.25
+2026-04-17 18:15:25,177 - src.backtest.engines.backtest - INFO - 买入: 2022-08-02 00:00:00 @ 0.8010 | 份额 187333.65 | 剩余现金 0.00
+2026-04-17 18:15:25,187 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 187333.65 | 剩余现金 174032.96
+2026-04-17 18:15:25,197 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 191666.25 | 剩余现金 0.00
+2026-04-17 18:15:25,200 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 191666.25 | 剩余现金 195691.24
+2026-04-17 18:15:25,208 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 197667.92 | 剩余现金 0.00
+2026-04-17 18:15:25,209 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 197667.92 | 剩余现金 222771.75
+2026-04-17 18:15:25,217 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 209371.95 | 剩余现金 0.00
+2026-04-17 18:15:25,221 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 209371.95 | 剩余现金 251455.71
+2026-04-17 18:15:25,233 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-17 18:15:25,289 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 78.18% | 年化 12.28%
+2026-04-17 18:15:25,360 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 29.53%
+2026-04-17 18:15:25,360 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:15:25,361 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 243 条
+2026-04-17 18:15:25,364 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2021-12-31
+2026-04-17 18:15:25,365 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2025-12-31
+2026-04-17 18:15:25,365 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-17 18:15:50,269 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 1212 条
+2026-04-17 18:15:50,271 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（1212条）
+2026-04-17 18:15:50,281 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:15:50,345 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-17 18:15:50,346 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-17 18:15:50,348 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 243 条
+2026-04-17 18:15:50,351 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2021-12-31
+2026-04-17 18:15:50,352 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2025-12-31
+2026-04-17 18:15:50,352 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-17 18:15:51,578 - src.core.providers.akshare_provider - INFO - 主接口获取成功: 1212 条
+2026-04-17 18:15:51,580 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（1212条）
+2026-04-17 18:15:51,590 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-17 18:15:51,676 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-17 18:15:51,688 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-17 18:17:39,735 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260417_181644.png
+2026-04-17 18:17:47,576 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260417_181742.png
+2026-04-17 18:17:50,158 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260417_181748.png
+2026-04-19 17:11:13,871 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-12-31
+2026-04-19 17:11:13,872 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 1天，数据量: 1211 条
+2026-04-19 17:11:13,877 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2021-01-04 ~ 2025-12-31
+2026-04-19 17:11:13,882 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 242 条
+2026-04-19 17:11:13,882 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 17:11:15,255 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 17:11:15,472 - src.core.providers.akshare_provider - INFO - fund_etf_hist_em 获取成功: 242 条
+2026-04-19 17:11:15,473 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（242条）
+2026-04-19 17:11:15,486 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 17:11:15,486 - src.core.providers.akshare_provider - INFO - bias 统计: mean=5.38%, std=4.61%
+2026-04-19 17:11:15,505 - src.backtest.engines.backtest - INFO - 开始回测: 242 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 17:11:15,506 - src.backtest.engines.backtest - INFO - 买入: 2021-01-04 00:00:00 @ 0.6600 | 份额 151515.15 | 剩余现金 -0.00
+2026-04-19 17:11:15,512 - src.backtest.engines.backtest - INFO - 卖出: 2021-05-31 00:00:00 @ 0.7690 | 份额 151515.15 | 剩余现金 116515.15
+2026-04-19 17:11:15,515 - src.backtest.engines.backtest - INFO - 买入: 2021-07-27 00:00:00 @ 0.7110 | 份额 163875.04 | 剩余现金 0.00
+2026-04-19 17:11:15,516 - src.backtest.engines.backtest - INFO - 卖出: 2021-08-31 00:00:00 @ 0.8000 | 份额 163875.04 | 剩余现金 131100.03
+2026-04-19 17:11:15,527 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 17:11:15,543 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 20.45% | 年化 20.72%
+2026-04-19 17:11:15,564 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 12 次 | 月投 10000 元/月 | 累计收益率 8.76%
+2026-04-19 17:11:15,564 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-12-31
+2026-04-19 17:11:15,566 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 1天，数据量: 1212 条
+2026-04-19 17:11:15,568 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2025-12-31
+2026-04-19 17:11:15,568 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-19 17:11:15,569 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-19 17:11:26,492 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 17:11:28,385 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 5890 条
+2026-04-19 17:11:28,396 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（5890条）
+2026-04-19 17:11:28,402 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 17:11:28,415 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -6.21%
+2026-04-19 17:11:28,415 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-12-31
+2026-04-19 17:11:28,417 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 1天，数据量: 1212 条
+2026-04-19 17:11:28,418 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2021-01-04 ~ 2025-12-31
+2026-04-19 17:11:28,420 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-19 17:11:28,420 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-19 17:11:33,397 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 17:11:33,989 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 8623 条
+2026-04-19 17:11:34,001 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（8623条）
+2026-04-19 17:11:34,008 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 17:11:34,025 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 3.91%
+2026-04-19 17:11:34,041 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 17:11:35,407 - src.core.visualizers.main_chart - INFO - 图表已保存: output\fund_512890_20260419_171134.png
+2026-04-19 17:11:35,986 - src.core.visualizers.compare - INFO - 对比图已保存: output\fund_512890_compare_20260419_171135.png
+2026-04-19 17:11:37,809 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: output\fund_512890_technical_20260419_171136.png
+2026-04-19 17:58:44,086 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-12-31
+2026-04-19 17:58:44,093 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 242 条
+2026-04-19 17:58:44,108 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2021-01-04 ~ 2021-12-31
+2026-04-19 17:58:44,111 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 242 条
+2026-04-19 17:58:44,111 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:00:12,331 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-12-31
+2026-04-19 18:00:12,333 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 242 条
+2026-04-19 18:00:12,337 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2021-01-04 ~ 2021-12-31
+2026-04-19 18:00:12,340 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 242 条
+2026-04-19 18:00:12,340 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:00:13,771 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:00:14,142 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:00:14,142 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:00:15,039 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:00:15,043 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:00:15,066 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 18:00:15,066 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-1.16%, std=22.49%
+2026-04-19 18:00:15,092 - src.backtest.engines.backtest - INFO - 开始回测: 242 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 18:00:15,107 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
+2026-04-19 18:00:15,121 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 18:00:15,142 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -39.77% | 年化 -40.13%
+2026-04-19 18:00:15,176 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 12 次 | 月投 10000 元/月 | 累计收益率 -36.89%
+2026-04-19 18:00:15,176 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-12-31
+2026-04-19 18:00:15,195 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5890 条
+2026-04-19 18:00:15,198 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-17
+2026-04-19 18:00:15,198 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-19 18:00:15,198 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5890 条
+2026-04-19 18:00:15,205 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 18:00:15,222 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -6.21%
+2026-04-19 18:00:15,222 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-12-31
+2026-04-19 18:00:15,239 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8623 条
+2026-04-19 18:00:15,241 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-17
+2026-04-19 18:00:15,242 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-12-31
+2026-04-19 18:00:15,242 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8623 条
+2026-04-19 18:00:15,249 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 243 条 (2021-01-04 ~ 2021-12-31)
+2026-04-19 18:00:15,266 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 3.91%
+2026-04-19 18:00:15,276 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 18:00:25,367 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:00:25,369 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:00:25,374 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:00:25,382 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:00:25,382 - src.core.providers.akshare_provider - INFO - bias 统计: mean=8.17%, std=2.79%
+2026-04-19 18:00:25,397 - src.backtest.engines.backtest - INFO - 开始回测: 58 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 18:00:25,405 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 18:00:25,412 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 7.50% | 年化 35.95%
+2026-04-19 18:00:25,420 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 3 次 | 月投 10000 元/月 | 累计收益率 6.40%
+2026-04-19 18:00:25,420 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:00:25,424 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5890 条
+2026-04-19 18:00:25,427 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-17
+2026-04-19 18:00:25,427 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:00:25,427 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5890 条
+2026-04-19 18:00:25,430 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:00:25,436 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -4.16%
+2026-04-19 18:00:25,436 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:00:25,438 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8623 条
+2026-04-19 18:00:25,440 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-17
+2026-04-19 18:00:25,441 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:00:25,441 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8623 条
+2026-04-19 18:00:25,446 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:00:25,452 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -1.74%
+2026-04-19 18:00:25,459 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 18:00:26,767 - src.backtest.ui.dialogs - ERROR - 加载图片失败: [Errno 2] No such file or directory: 'output\\fund_512890_20260419_180026.png'
+2026-04-19 18:00:27,374 - src.backtest.ui.dialogs - ERROR - 加载图片失败: [Errno 2] No such file or directory: 'output\\fund_512890_compare_20260419_180026.png'
+2026-04-19 18:00:27,459 - src.backtest.ui.dialogs - ERROR - 加载图片失败: [Errno 2] No such file or directory: 'output\\fund_512890_technical_20260419_180026.png'
+2026-04-19 18:03:24,555 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:03:24,557 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:03:24,561 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:03:24,569 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:03:24,570 - src.core.providers.akshare_provider - INFO - bias 统计: mean=8.17%, std=2.79%
+2026-04-19 18:03:24,586 - src.backtest.engines.backtest - INFO - 开始回测: 58 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 18:03:24,594 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 18:03:24,600 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 7.50% | 年化 35.95%
+2026-04-19 18:03:24,609 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 3 次 | 月投 10000 元/月 | 累计收益率 6.40%
+2026-04-19 18:03:24,609 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:03:24,612 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5890 条
+2026-04-19 18:03:24,614 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-17
+2026-04-19 18:03:24,616 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:03:24,616 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5890 条
+2026-04-19 18:03:24,620 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:03:24,624 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -4.16%
+2026-04-19 18:03:24,626 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:03:24,628 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8623 条
+2026-04-19 18:03:24,630 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-17
+2026-04-19 18:03:24,630 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:03:24,630 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8623 条
+2026-04-19 18:03:24,634 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:03:24,640 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -1.74%
+2026-04-19 18:03:24,649 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 18:03:27,746 - src.backtest.ui.dialogs - ERROR - 加载图片失败: main thread is not in main loop
+2026-04-19 18:03:29,987 - src.backtest.ui.dialogs - ERROR - 加载图片失败: main thread is not in main loop
+2026-04-19 18:03:32,233 - src.backtest.ui.dialogs - ERROR - 加载图片失败: main thread is not in main loop
+2026-04-19 18:04:36,560 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:04:36,561 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:04:36,565 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:04:36,573 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:04:36,573 - src.core.providers.akshare_provider - INFO - bias 统计: mean=8.17%, std=2.79%
+2026-04-19 18:04:36,590 - src.backtest.engines.backtest - INFO - 开始回测: 58 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 18:04:36,597 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 18:04:36,604 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 7.50% | 年化 35.95%
+2026-04-19 18:04:36,612 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 3 次 | 月投 10000 元/月 | 累计收益率 6.40%
+2026-04-19 18:04:36,613 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:04:36,616 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5890 条
+2026-04-19 18:04:36,618 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-17
+2026-04-19 18:04:36,618 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:04:36,618 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5890 条
+2026-04-19 18:04:36,622 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:04:36,627 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -4.16%
+2026-04-19 18:04:36,627 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:04:36,630 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8623 条
+2026-04-19 18:04:36,632 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-17
+2026-04-19 18:04:36,633 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:04:36,633 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8623 条
+2026-04-19 18:04:36,638 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:04:36,644 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -1.74%
+2026-04-19 18:04:36,652 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 18:04:38,235 - src.core.utils.logger - ERROR - 未知异常: image "pyimage52" doesn't exist
+Traceback (most recent call last):
+  File "C:\Users\24533\Desktop\红利低波\main.py", line 441, in run_backtest_mode
+    _show_dialogs(args, result, compare_result, output_dir, main_path, compare_path, technical_path, save_main_chart, save_compare_chart, save_technical_chart, main_fig, compare_fig, technical_fig)
+  File "C:\Users\24533\Desktop\红利低波\main.py", line 381, in _show_dialogs
+    preview.show(
+  File "C:\Users\24533\Desktop\红利低波\src\backtest\ui\dialogs.py", line 667, in show
+    self._render_image(high_quality=True)
+  File "C:\Users\24533\Desktop\红利低波\src\backtest\ui\dialogs.py", line 776, in _render_image
+    self._img_label.config(image=self._photo, text='', anchor='center')
+  File "D:\miniconda3\envs\study\Lib\tkinter\__init__.py", line 1722, in configure
+    return self._configure('configure', cnf, kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\miniconda3\envs\study\Lib\tkinter\__init__.py", line 1712, in _configure
+    self.tk.call(_flatten((self._w, cmd)) + self._options(cnf))
+_tkinter.TclError: image "pyimage52" doesn't exist
+2026-04-19 18:06:08,659 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:06:08,662 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:06:08,669 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:06:08,678 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:06:08,679 - src.core.providers.akshare_provider - INFO - bias 统计: mean=8.17%, std=2.79%
+2026-04-19 18:06:08,702 - src.backtest.engines.backtest - INFO - 开始回测: 58 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 18:06:08,710 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 18:06:08,719 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 7.50% | 年化 35.95%
+2026-04-19 18:06:08,729 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 3 次 | 月投 10000 元/月 | 累计收益率 6.40%
+2026-04-19 18:06:08,729 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:06:08,733 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 5890 条
+2026-04-19 18:06:08,737 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 2002-01-04 ~ 2026-04-17
+2026-04-19 18:06:08,738 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:06:08,738 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 5890 条
+2026-04-19 18:06:08,743 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:06:08,750 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -4.16%
+2026-04-19 18:06:08,750 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2021-03-31
+2026-04-19 18:06:08,754 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 8623 条
+2026-04-19 18:06:08,755 - src.core.providers.akshare_provider - INFO - 缓存日期范围: 1990-12-19 ~ 2026-04-17
+2026-04-19 18:06:08,755 - src.core.providers.akshare_provider - INFO - 请求日期范围: 2021-01-01 ~ 2021-03-31
+2026-04-19 18:06:08,755 - src.core.providers.akshare_provider - INFO - 从缓存加载指数数据: 8623 条
+2026-04-19 18:06:08,761 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 58 条 (2021-01-04 ~ 2021-03-31)
+2026-04-19 18:06:08,767 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 -1.74%
+2026-04-19 18:06:08,777 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 18:06:09,586 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260419_180608.png
+2026-04-19 18:06:10,340 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260419_180609.png
+2026-04-19 18:06:11,836 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260419_180610.png
+2026-04-19 18:13:08,521 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:13:08,521 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:13:08,521 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:13:08,524 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:13:08,528 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:13:08,536 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:13:08,536 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:13:08,538 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:13:08,538 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:13:08,539 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:13:08,541 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:13:08,543 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:13:08,544 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:13:09,171 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:13:09,419 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:13:09,420 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:13:09,853 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:13:09,856 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:13:09,862 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:13:09,862 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:13:09,863 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:13:09,863 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:13:09,902 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:13:09,902 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:13:11,814 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:20:19,352 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:20:19,352 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:20:19,352 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:20:19,354 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:20:19,358 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:20:19,368 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:20:19,368 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:20:19,370 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:20:19,370 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:20:19,372 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:20:19,374 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:20:19,376 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:20:19,376 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:20:20,164 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:20:20,508 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:20:20,508 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:20:20,989 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:20:20,991 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:20:20,998 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:20:20,998 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:20:20,999 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:20:20,999 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:20:21,010 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:20:21,011 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:20:22,872 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:21:04,481 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:21:04,481 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:21:04,481 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:21:04,482 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:21:04,486 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:21:04,495 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:21:04,495 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:21:04,497 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:21:04,497 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:21:04,498 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:21:04,500 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:21:04,502 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:21:04,502 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:21:05,132 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:21:05,321 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:21:05,321 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:21:05,598 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:21:05,602 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:21:05,609 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:21:05,609 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:21:05,610 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:21:05,610 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:21:05,619 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:21:05,620 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:21:07,226 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:24:16,660 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:24:16,660 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:24:16,660 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:24:16,662 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:24:16,665 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:24:16,675 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:24:16,675 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:24:16,678 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:24:16,678 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:24:16,680 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:24:16,682 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:24:16,684 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:24:16,684 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:24:17,461 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:24:17,632 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:24:17,632 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:24:18,069 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:24:18,073 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:24:18,085 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:24:18,086 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:24:18,088 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:24:18,088 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:24:18,104 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:24:18,104 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:24:20,378 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:28:18,967 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:28:18,967 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:28:18,967 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:28:18,969 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:28:18,973 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:28:18,983 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:28:18,983 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:28:18,985 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:28:18,985 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:28:18,987 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:28:18,989 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:28:18,990 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:28:18,990 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:28:19,740 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:28:19,914 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:28:19,914 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:28:20,279 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:28:20,282 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:28:20,289 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:28:20,289 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:28:20,291 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:28:20,291 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:28:20,302 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:28:20,302 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:28:22,054 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:28:54,842 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:28:54,844 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:28:54,844 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:28:54,846 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:28:54,849 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:28:54,858 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:28:54,858 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:28:54,860 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:28:54,860 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:28:54,862 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:28:54,864 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:28:54,865 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:28:54,865 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:28:55,452 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:28:55,660 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:28:55,660 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:28:55,866 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:28:55,869 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:28:55,877 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:28:55,878 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:28:55,878 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:28:55,879 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:28:55,888 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:28:55,888 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:28:57,525 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 18:31:12,998 - src.core.utils.logger - INFO - 开始获取512890数据
+2026-04-19 18:31:12,999 - src.judgment.data.data_provider - INFO - 获取512890数据，最近180天
+2026-04-19 18:31:12,999 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2024-01-01 至 2024-12-31
+2026-04-19 18:31:13,001 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:31:13,006 - src.core.providers.akshare_provider - INFO - 从缓存加载ETF数据: 1754 条
+2026-04-19 18:31:13,014 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 242 条 (2024-01-02 ~ 2024-12-31)
+2026-04-19 18:31:13,014 - src.core.providers.akshare_provider - INFO - bias 统计: mean=6.93%, std=3.88%
+2026-04-19 18:31:13,017 - src.core.utils.logger - INFO - 数据获取成功，共242条记录
+2026-04-19 18:31:13,017 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2025-04-19 至 2026-04-19
+2026-04-19 18:31:13,019 - src.core.providers.akshare_provider - INFO - 从缓存加载成功，缓存年龄: 0天，数据量: 1754 条
+2026-04-19 18:31:13,020 - src.core.providers.akshare_provider - WARNING - 缓存数据不完全覆盖: 数据范围 2019-01-18 ~ 2026-04-17
+2026-04-19 18:31:13,022 - src.core.providers.akshare_provider - INFO - 保留回测区间内的缓存数据: 241 条
+2026-04-19 18:31:13,022 - src.core.providers.akshare_provider - INFO - 触发新的数据获取流程以补充缺失数据
+2026-04-19 18:31:13,841 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 18:31:14,119 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 18:31:14,119 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 18:31:14,464 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 18:31:14,466 - src.core.providers.akshare_provider - INFO - 数据已缓存: C:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 18:31:14,476 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 241 条 (2025-04-21 ~ 2026-04-17)
+2026-04-19 18:31:14,476 - src.core.providers.akshare_provider - INFO - bias 统计: mean=4.88%, std=3.56%
+2026-04-19 18:31:14,476 - src.core.utils.logger - INFO - 获取ETF信息成功: {'code': '512890', 'name': '红利低波ETF'}
+2026-04-19 18:31:14,476 - src.core.utils.logger - INFO - 开始更新信息面板
+2026-04-19 18:31:14,490 - src.core.utils.logger - INFO - 信息面板更新成功
+2026-04-19 18:31:14,490 - src.core.utils.logger - INFO - 开始更新图表面板
+2026-04-19 18:31:16,322 - src.core.utils.logger - INFO - 图表面板更新成功
+2026-04-19 20:59:45,944 - src.core.providers.akshare_provider - INFO - 获取ETF 512890(红利低波ETF)数据: 2021-01-01 至 2025-12-31
+2026-04-19 20:59:45,947 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 20:59:47,364 - src.core.providers.akshare_provider - INFO - 尝试 fund_etf_hist_em 获取 512890 前复权数据...
+2026-04-19 20:59:47,601 - src.core.providers.akshare_provider - WARNING - fund_etf_hist_em 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without
+2026-04-19 20:59:47,601 - src.core.providers.akshare_provider - INFO - 降级到 stock_zh_index_daily 获取 512890 数据...
+2026-04-19 20:59:48,166 - src.core.providers.akshare_provider - INFO - stock_zh_index_daily 获取成功: 1754 条
+2026-04-19 20:59:48,169 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\etf_512890_raw.pkl（1754条）
+2026-04-19 20:59:48,181 - src.core.providers.akshare_provider - INFO - ETF 红利低波ETF 处理完成: 1211 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 20:59:48,181 - src.core.providers.akshare_provider - INFO - bias 统计: mean=-0.27%, std=15.37%
+2026-04-19 20:59:48,598 - src.backtest.engines.backtest - INFO - 开始回测: 1211 个交易日 | 分红模式: reinvest | 初始资金: 100,000
+2026-04-19 20:59:48,623 - src.backtest.engines.backtest - INFO - 买入: 2021-10-25 00:00:00 @ 0.8010 | 份额 124843.95 | 剩余现金 0.00
+2026-04-19 20:59:48,652 - src.backtest.engines.backtest - INFO - 卖出: 2023-04-17 00:00:00 @ 0.9290 | 份额 124843.95 | 剩余现金 115980.02
+2026-04-19 20:59:48,665 - src.backtest.engines.backtest - INFO - 买入: 2023-12-20 00:00:00 @ 0.9080 | 份额 127731.31 | 剩余现金 0.00
+2026-04-19 20:59:48,669 - src.backtest.engines.backtest - INFO - 卖出: 2024-02-22 00:00:00 @ 1.0210 | 份额 127731.31 | 剩余现金 130413.66
+2026-04-19 20:59:48,679 - src.backtest.engines.backtest - INFO - 买入: 2024-09-05 00:00:00 @ 0.9900 | 份额 131730.97 | 剩余现金 -0.00
+2026-04-19 20:59:48,680 - src.backtest.engines.backtest - INFO - 卖出: 2024-09-30 00:00:00 @ 1.1270 | 份额 131730.97 | 剩余现金 148460.81
+2026-04-19 20:59:48,692 - src.backtest.engines.backtest - INFO - 买入: 2025-04-07 00:00:00 @ 1.0640 | 份额 139530.83 | 剩余现金 0.00
+2026-04-19 20:59:48,697 - src.backtest.engines.backtest - INFO - 卖出: 2025-06-25 00:00:00 @ 1.2010 | 份额 139530.83 | 剩余现金 167576.53
+2026-04-19 20:59:49,815 - src.backtest.engines.benchmark - INFO - 开始运行基准对比...
+2026-04-19 20:59:49,900 - src.backtest.engines.benchmark - INFO - 基准A(一次性买入): 累计 -10.91% | 年化 -2.29%
+2026-04-19 20:59:50,003 - src.backtest.engines.benchmark - INFO - 基准B(定期定额): 共 60 次 | 月投 10000 元/月 | 累计收益率 16.03%
+2026-04-19 20:59:50,003 - src.core.providers.akshare_provider - INFO - 获取指数 000300(沪深300)数据: 2021-01-01 至 2025-12-31
+2026-04-19 20:59:50,008 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 20:59:50,008 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000300 数据...
+2026-04-19 20:59:56,262 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 20:59:56,814 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 5890 条
+2026-04-19 20:59:56,824 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000300_raw.pkl（5890条）
+2026-04-19 20:59:56,831 - src.core.providers.akshare_provider - INFO - 指数 沪深300 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 20:59:56,907 - src.backtest.engines.benchmark - INFO - 基准C(沪深300): 同期累计 -12.11%
+2026-04-19 20:59:56,907 - src.core.providers.akshare_provider - INFO - 获取指数 000001(上证指数)数据: 2021-01-01 至 2025-12-31
+2026-04-19 20:59:56,912 - src.core.providers.akshare_provider - WARNING - 缓存数据不完整，重新获取
+2026-04-19 20:59:56,912 - src.core.providers.akshare_provider - INFO - 调用 akshare 获取指数 000001 数据...
+2026-04-19 21:00:02,346 - src.core.providers.akshare_provider - WARNING - 主接口 index_zh_a_hist 失败: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))，尝试备用接口...
+2026-04-19 21:00:02,819 - src.core.providers.akshare_provider - INFO - 备用接口获取成功: 8623 条
+2026-04-19 21:00:02,833 - src.core.providers.akshare_provider - INFO - 数据已缓存: c:\Users\24533\Desktop\红利低波\cache\index_000001_raw.pkl（8623条）
+2026-04-19 21:00:02,840 - src.core.providers.akshare_provider - INFO - 指数 上证指数 处理完成: 1212 条 (2021-01-04 ~ 2025-12-31)
+2026-04-19 21:00:02,923 - src.backtest.engines.benchmark - INFO - 基准D(上证指数): 同期累计 13.30%
+2026-04-19 21:00:02,941 - src.backtest.engines.benchmark - INFO - 基准对比完成
+2026-04-19 21:00:04,872 - src.core.visualizers.main_chart - INFO - 图表已保存: temp\temp_fund_512890_20260419_210004.png
+2026-04-19 21:00:06,705 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-19 21:00:06,712 - matplotlib.category - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-04-19 21:00:07,470 - src.core.visualizers.compare - INFO - 对比图已保存: temp\temp_fund_512890_compare_20260419_210006.png
+2026-04-19 21:00:09,115 - src.core.visualizers.technical_chart - WARNING - pandas_ta KDJ计算结果不完整，使用手动计算
+2026-04-19 21:00:13,472 - src.core.visualizers.technical_chart - INFO - 技术分析图表已保存: temp\temp_fund_512890_technical_20260419_210011.png

@@ -35,11 +35,19 @@ class KlineChart:
         fig = plt.figure(figsize=self.figsize)
         gs = GridSpec(3, 1, height_ratios=[3, 1, 0.5])
         
+        # 计算基准值（起始点价格设为1.0）
+        base_price = df['close'].iloc[0]
+        df['normalized_close'] = df['close'] / base_price
+        
+        # 计算250日均线（年线）
+        df['ma_250'] = df['close'].rolling(window=250, min_periods=1).mean()
+        df['normalized_ma_250'] = df['ma_250'] / base_price
+        
         # 主K线图
         ax1 = fig.add_subplot(gs[0])
         
         if chart_type == 'candle':
-            self._plot_candlestick(ax1, df)
+            self._plot_candlestick(ax1, df, base_price)
         else:
             self._plot_line(ax1, df)
         
@@ -56,23 +64,37 @@ class KlineChart:
         
         return fig
     
-    def _plot_candlestick(self, ax, df):
+    def _plot_candlestick(self, ax, df, base_price):
         """绘制蜡烛图"""
-        # 使用OHLC数据绘制蜡烛图
+        # 使用标准化数据绘制蜡烛图
         for i, row in df.iterrows():
-            color = 'red' if row['close'] >= row['open'] else 'green'
-            ax.plot([row['date'], row['date']], [row['low'], row['high']], color=color)
-            ax.plot([row['date'], row['date']], [row['open'], row['close']], color=color, linewidth=2)
+            normalized_open = row['open'] / base_price
+            normalized_close = row['normalized_close']
+            normalized_low = row['low'] / base_price
+            normalized_high = row['high'] / base_price
+            
+            color = 'red' if normalized_close >= normalized_open else 'green'
+            ax.plot([row['date'], row['date']], [normalized_low, normalized_high], color=color)
+            ax.plot([row['date'], row['date']], [normalized_open, normalized_close], color=color, linewidth=2)
         
-        ax.set_ylabel('价格')
-        ax.set_title('K线走势')
+        # 绘制年线（250日均线）
+        ax.plot(df['date'], df['normalized_ma_250'], linewidth=2, color='orange', label='年线(250)')
+        
+        ax.set_ylabel('标准化价格')
+        ax.set_title('K线走势（基准值=1.0）')
         ax.grid(True, alpha=0.3)
+        ax.legend()
     
     def _plot_line(self, ax, df):
         """绘制折线图"""
-        ax.plot(df['date'], df['close'], linewidth=1.5, color='blue', label='收盘价')
-        ax.set_ylabel('价格')
-        ax.set_title('价格走势')
+        # 使用标准化数据绘制折线图
+        ax.plot(df['date'], df['normalized_close'], linewidth=1.5, color='blue', label='标准化收盘价')
+        
+        # 绘制年线（250日均线）
+        ax.plot(df['date'], df['normalized_ma_250'], linewidth=2, color='orange', label='年线(250)')
+        
+        ax.set_ylabel('标准化价格')
+        ax.set_title('价格走势（基准值=1.0）')
         ax.grid(True, alpha=0.3)
         ax.legend()
     

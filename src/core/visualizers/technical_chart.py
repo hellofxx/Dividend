@@ -22,18 +22,33 @@ v4.0 变更：
 
 import logging
 from pathlib import Path
-from typing import List, Dict, TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING, Tuple
 
 import pandas as pd
 import numpy as np
 
-from ..models import BacktestResult, TradeRecord
-from .themes import ThemeConfig, get_theme
+from ..models import BacktestResult
+from .themes import get_theme
+
+logger = logging.getLogger(__name__)
+
+# 尝试导入numba进行性能优化
+try:
+    from numba import jit
+    HAS_NUMBA = True
+except ImportError:
+    HAS_NUMBA = False
+    logger.warning("numba未安装，技术指标计算可能较慢")
+
+def jit_if_available(func):
+    """如果numba可用则使用jit装饰器"""
+    if HAS_NUMBA:
+        return jit(func, nopython=True, fastmath=True)
+    return func
 
 if TYPE_CHECKING:
     import matplotlib.pyplot as plt
-
-logger = logging.getLogger(__name__)
+    from matplotlib.figure import Figure
 
 
 class TechnicalChart:
@@ -57,6 +72,10 @@ class TechnicalChart:
     def _apply_theme(self):
         """应用主题到matplotlib"""
         import matplotlib.pyplot as plt
+        # 确保中文字体正确设置
+        plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+        plt.rcParams['axes.unicode_minus'] = False
+        # 应用主题颜色
         plt.rcParams['figure.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.edgecolor'] = self.theme.text_color
@@ -71,7 +90,20 @@ class TechnicalChart:
     # ------------------------------------------------------------------
 
     def _calculate_macd(self, df: pd.DataFrame) -> Tuple[pd.Series, pd.Series, pd.Series]:
-        """计算MACD指标：DIF = EMA(12) - EMA(26), DEA = EMA(DIF, 9), MACD = 2*(DIF-DEA)"""
+        """计算MACD指标：使用pandas_ta库，失败时使用手动计算"""
+        try:
+            # 使用pandas_ta计算MACD
+            macd_result = df.ta.macd(close='acc_nav', fast=12, slow=26, signal=9, append=False)
+            if not macd_result.empty and all(col in macd_result.columns for col in ['MACD_12_26_9', 'MACDs_12_26_9', 'MACDh_12_26_9']):
+                dif = macd_result['MACD_12_26_9']
+                dea = macd_result['MACDs_12_26_9']
+                macd = macd_result['MACDh_12_26_9']
+                return dif, dea, macd
+            logger.warning("pandas_ta MACD计算结果不完整，使用手动计算")
+        except Exception as e:
+            logger.warning(f"pandas_ta MACD计算失败: {e}，使用手动计算")
+        
+        # 降级方案：使用手动计算
         ema12 = df['acc_nav'].ewm(span=12, adjust=False).mean()
         ema26 = df['acc_nav'].ewm(span=26, adjust=False).mean()
         dif = ema12 - ema26
@@ -80,31 +112,128 @@ class TechnicalChart:
         return dif, dea, macd
     
     def _calculate_rsi(self, df: pd.DataFrame, period: int = 14) -> pd.Series:
-        """计算RSI指标：RSI = 100 - 100/(1+RS)"""
-        delta = df['acc_nav'].diff()
-        gain = delta.where(delta > 0, 0)
-        loss = (-delta).where(delta < 0, 0)
-        avg_gain = gain.rolling(window=period).mean()
-        avg_loss = loss.rolling(window=period).mean()
-        rs = avg_gain / avg_loss
-        rsi = 100 - (100 / (1 + rs))
+        """计算RSI指标：使用pandas_ta库，失败时使用手动计算"""
+        try:
+            # 使用pandas_ta计算RSI
+            rsi_result = df.ta.rsi(close='acc_nav', length=period, append=False)
+            if not rsi_result.empty:
+                return rsi_result
+            logger.warning("pandas_ta RSI计算结果为空，使用手动计算")
+        except Exception as e:
+            logger.warning(f"pandas_ta RSI计算失败: {e}，使用手动计算")
+        
+        # 降级方案：使用手动计算
+        close = np.asarray(df['acc_nav'].values)
+        rsi_values = self._manual_rsi(close, period)
+        return pd.Series(rsi_values, index=df.index)
+    
+    @staticmethod
+    @jit_if_available
+    def _manual_rsi(close: np.ndarray, period: int) -> np.ndarray:
+        """手动计算RSI指标（numba加速）"""
+        n = len(close)
+        rsi = np.zeros(n)
+        gain = np.zeros(n)
+        loss = np.zeros(n)
+        
+        # 计算每日涨跌
+        for i in range(1, n):
+            change = close[i] - close[i-1]
+            if change > 0:
+                gain[i] = change
+            else:
+                loss[i] = -change
+        
+        # 计算平均涨跌
+        avg_gain = np.zeros(n)
+        avg_loss = np.zeros(n)
+        avg_gain[period] = np.mean(gain[1:period+1])
+        avg_loss[period] = np.mean(loss[1:period+1])
+        
+        for i in range(period+1, n):
+            avg_gain[i] = (avg_gain[i-1] * (period-1) + gain[i]) / period
+            avg_loss[i] = (avg_loss[i-1] * (period-1) + loss[i]) / period
+        
+        # 计算RSI
+        for i in range(period, n):
+            if avg_loss[i] == 0:
+                rsi[i] = 100.0
+            else:
+                rs = avg_gain[i] / avg_loss[i]
+                rsi[i] = 100.0 - (100.0 / (1 + rs))
+        
         return rsi
     
     def _calculate_kdj(self, df: pd.DataFrame, n: int = 9, m1: int = 3, m2: int = 3) -> Tuple[pd.Series, pd.Series, pd.Series]:
-        """计算KDJ指标：RSV → K → D → J = 3K-2D"""
-        low_list = df['acc_nav'].rolling(window=n, min_periods=n).min()
-        high_list = df['acc_nav'].rolling(window=n, min_periods=n).max()
-        rsv = (df['acc_nav'] - low_list) / (high_list - low_list) * 100
+        """计算KDJ指标：使用pandas_ta库，失败时使用手动计算"""
+        try:
+            # 使用pandas_ta计算KDJ
+            kdj_result = df.ta.kdj(high='acc_nav', low='acc_nav', close='acc_nav', length=n, signal=m1, append=False)
+            if not kdj_result.empty and all(col in kdj_result.columns for col in ['KDJ_k', 'KDJ_d', 'KDJ_j']):
+                k = kdj_result['KDJ_k']
+                d = kdj_result['KDJ_d']
+                j = kdj_result['KDJ_j']
+                return k, d, j
+            logger.warning("pandas_ta KDJ计算结果不完整，使用手动计算")
+        except Exception as e:
+            logger.warning(f"pandas_ta KDJ计算失败: {e}，使用手动计算")
         
-        k = rsv.ewm(com=m1-1, adjust=False).mean()
-        d = k.ewm(com=m2-1, adjust=False).mean()
-        j = 3 * k - 2 * d
+        # 降级方案：使用手动计算
+        close = np.asarray(df['acc_nav'].values)
+        k, d, j = self._manual_kdj(close, n, m1, m2)
+        return pd.Series(k, index=df.index), pd.Series(d, index=df.index), pd.Series(j, index=df.index)
+    
+    @staticmethod
+    @jit_if_available
+    def _manual_kdj(close: np.ndarray, n: int, m1: int, m2: int) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """手动计算KDJ指标（numba加速）"""
+        n_len = len(close)
+        k = np.zeros(n_len)
+        d = np.zeros(n_len)
+        j = np.zeros(n_len)
+        rsv = np.zeros(n_len)
+        
+        # 计算RSV
+        for i in range(n-1, n_len):
+            window = close[i-n+1:i+1]
+            low = np.min(window)
+            high = np.max(window)
+            if high != low:
+                rsv[i] = (close[i] - low) / (high - low) * 100
+            else:
+                rsv[i] = 50.0
+        
+        # 计算K、D、J
+        k[n-1] = 50.0
+        d[n-1] = 50.0
+        j[n-1] = 50.0
+        
+        for i in range(n, n_len):
+            k[i] = (k[i-1] * (m1-1) + rsv[i]) / m1
+            d[i] = (d[i-1] * (m2-1) + k[i]) / m2
+            j[i] = 3 * k[i] - 2 * d[i]
+        
         return k, d, j
     
     def _calculate_drawdown(self, df: pd.DataFrame) -> pd.Series:
         """计算回撤曲线：回撤 = (当前值 - 历史最高值) / 历史最高值 * 100"""
-        cummax = df['acc_nav'].cummax()
-        drawdown = (df['acc_nav'] - cummax) / cummax * 100
+        close = np.asarray(df['acc_nav'].values)
+        drawdown = self._manual_drawdown(close)
+        return pd.Series(drawdown, index=df.index)
+    
+    @staticmethod
+    @jit_if_available
+    def _manual_drawdown(close: np.ndarray) -> np.ndarray:
+        """手动计算回撤曲线（numba加速）"""
+        n = len(close)
+        drawdown = np.zeros(n)
+        cummax = close[0]
+        
+        for i in range(n):
+            if close[i] > cummax:
+                cummax = close[i]
+            drawdown[i] = (close[i] - cummax) / cummax * 100
+        
         return drawdown
     
     # ------------------------------------------------------------------
@@ -117,7 +246,7 @@ class TechnicalChart:
         result: BacktestResult,
         fund_code: str,
         fund_name: str,
-    ) -> "plt.Figure":
+    ) -> "Figure":
         """
         创建技术分析图表
         
@@ -136,7 +265,7 @@ class TechnicalChart:
         # ========== 左侧信息栏 ==========
         ax_info = fig.add_subplot(gs[:, 0])
         ax_info.axis('off')
-        self._plot_info_panel(ax_info, df, result, fund_code, fund_name)
+        self._plot_info_panel(ax_info, result, fund_code, fund_name)
         
         # ========== 右侧图表区（6个图表） ==========
         # 1. ETF收益曲线(含250日年线)
@@ -182,7 +311,6 @@ class TechnicalChart:
     def _plot_info_panel(
         self,
         ax,
-        df: pd.DataFrame,
         result: BacktestResult,
         fund_code: str,
         fund_name: str
@@ -366,16 +494,16 @@ class TechnicalChart:
                transform=ax.transAxes, fontsize=9,
                color='red', fontweight='bold')
     
-    def save(self, fig: "plt.Figure", path: str) -> None:
+    def save(self, fig: "Figure", output_path: Path, dpi: int = 150) -> Path:
         """保存图表"""
         import matplotlib.pyplot as plt
         
-        output_path = Path(path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
         fig.savefig(
-            output_path, dpi=150, bbox_inches='tight',
+            output_path, dpi=dpi, bbox_inches='tight',
             facecolor=self.theme.bg_color, edgecolor='none'
         )
         plt.close(fig)
         logger.info(f"技术分析图表已保存: {output_path}")
+        return output_path

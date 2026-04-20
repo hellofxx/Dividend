@@ -49,6 +49,10 @@ class CompareChart:
     def _apply_theme(self):
         """应用主题"""
         import matplotlib.pyplot as plt
+        # 确保中文字体正确设置
+        plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+        plt.rcParams['axes.unicode_minus'] = False
+        # 应用主题颜色
         plt.rcParams['figure.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.facecolor'] = self.theme.bg_color
         plt.rcParams['axes.edgecolor'] = self.theme.text_color
@@ -140,7 +144,9 @@ class CompareChart:
         ax.grid(True, alpha=0.3)
 
     def _plot_annual_returns(self, ax, cr: CompareResult) -> None:
-        """绘制年度收益率柱状图"""
+        """绘制年度收益率柱状图 - 使用seaborn增强"""
+        import seaborn as sns
+        
         strategies = self._get_strategy_data(cr)
         if not strategies:
             ax.text(0.5, 0.5, '无数据', ha='center', va='center',
@@ -158,33 +164,38 @@ class CompareChart:
                    transform=ax.transAxes, color=self.theme.text_color)
             return
 
-        n_years = len(all_years)
-        n_strats = len(all_annual)
-        bar_width = min(0.11, 0.65 / n_strats)  # 进一步减小柱宽，避免重叠
-        x = np.arange(n_years)
+        # 准备数据用于seaborn
+        data = []
+        for name, annual_dict in all_annual.items():
+            for year in all_years:
+                data.append({
+                    'Year': str(year),
+                    'Strategy': name,
+                    'Return': annual_dict.get(year, 0.0)
+                })
+        df_annual = pd.DataFrame(data)
 
-        colors = list(self.theme.line_colors) + ['#666688', '#E87020']
+        # 使用seaborn绘制柱状图
+        sns.set_style("whitegrid")
+        sns.barplot(
+            x='Year',
+            y='Return',
+            hue='Strategy',
+            data=df_annual,
+            ax=ax,
+            palette=list(self.theme.line_colors) + ['#666688', '#E87020'],
+            alpha=0.85
+        )
 
-        for i, (name, annual_dict) in enumerate(all_annual.items()):
-            values = [annual_dict.get(year, 0.0) for year in all_years]
-            offset = (i - n_strats/2 + 0.5) * bar_width
-            bars = ax.bar(x + offset, values, bar_width,
-                  label=name, color=colors[i % len(colors)], alpha=0.85)
-            
-            # 为每个柱子添加数据标签，但仅在空间充足时
-            for j, bar in enumerate(bars):
-                height = bar.get_height()
-                if abs(height) > 5:  # 仅为绝对值大于5%的数据添加标签
-                    ax.text(bar.get_x() + bar.get_width()/2., height + (0.5 if height > 0 else -5),
-                            f'{values[j]:+.1f}%', ha='center', va='bottom' if height > 0 else 'top',
-                            fontsize=6, color=self.theme.text_color)
+        # 为每个柱子添加数据标签，但仅在空间充足时
+        for container in ax.containers:
+            ax.bar_label(container, fmt='%.1f%%', fontsize=6,
+                        label_type='edge', padding=2)
 
         ax.axhline(y=0, color=self.theme.text_color, linewidth=0.8, alpha=0.5)
-        ax.set_xticks(x)
-        ax.set_xticklabels([str(y) for y in all_years], fontsize=8)
         ax.set_title('年度收益率 (%)', fontsize=11, color=self.theme.text_color, fontweight='bold')
         ax.set_ylabel('收益率 (%)', fontsize=8, color=self.theme.text_color)
-        ax.legend(loc='lower center', fontsize=7, ncol=min(n_strats, 3),
+        ax.legend(loc='lower center', fontsize=7, ncol=min(len(all_annual), 3),
                  framealpha=0.85, columnspacing=0.6, bbox_to_anchor=(0.5, -0.3))
         ax.grid(True, alpha=0.3, axis='y')
         ax.tick_params(axis='both', labelsize=8)

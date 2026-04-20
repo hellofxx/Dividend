@@ -48,7 +48,7 @@ class AkshareProvider:
     CACHE_EXPIRY_DAYS = 7
     PERMANENT_CACHE_CODES = {'000300', '000001', '512890'}
     
-    def __init__(self, cache_dir: str = None, cache_expiry_days: int = None):
+    def __init__(self, cache_dir: Optional[str] = None, cache_expiry_days: Optional[int] = None):
         if cache_dir is None:
             project_root = Path(__file__).parent.parent.parent.parent
             self._cache_dir = project_root / "cache"
@@ -103,14 +103,20 @@ class AkshareProvider:
                 return self._process_etf_data(cached_df, code, etf_name, start, end)
             elif data_start <= user_end and data_end >= user_start:
                 logger.warning(f"缓存数据不完全覆盖: 数据范围 {data_start.strftime('%Y-%m-%d')} ~ {data_end.strftime('%Y-%m-%d')}")
-                return self._process_etf_data(cached_df, code, etf_name, start, end)
+                # 保留回测区间内的缓存数据，删除超出部分
+                filtered_cache = cached_df[(pd.to_datetime(cached_df[date_col]) >= user_start) & 
+                                         (pd.to_datetime(cached_df[date_col]) <= user_end)]
+                if len(filtered_cache) > 0:
+                    logger.info(f"保留回测区间内的缓存数据: {len(filtered_cache)} 条")
+                # 触发新的数据获取流程以补充缺失数据
+                logger.info("触发新的数据获取流程以补充缺失数据")
         
         # 从 akshare 获取
         import akshare as ak
         
         df = None
         
-        # 方法1: fund_etf_hist_em（支持前复权）
+        # 方法1: fund_etf_hist_em（东方财富源，支持前复权）
         try:
             logger.info(f"尝试 fund_etf_hist_em 获取 {code} 前复权数据...")
             df = ak.fund_etf_hist_em(
@@ -195,11 +201,21 @@ class AkshareProvider:
             raise DataFetchError(f"ETF {code} 在 {start}~{end} 无有效数据")
         
         # FundData 字段映射
+        # 对于前复权数据，我们使用 close 作为 nav
+        # 对于 acc_nav，我们使用基于前复权的累计计算
         df['nav'] = df['close']
-        df['acc_nav'] = df['close']
+        
+        # 计算累计净值（基于前复权数据的累计收益）
+        # 计算每日收益率
+        df['daily_return'] = df['close'].pct_change().fillna(0)
+        # 计算累计收益
+        df['cum_return'] = (1 + df['daily_return']).cumprod()
+        # 基于初始价格计算累计净值
+        initial_price = df['close'].iloc[0]
+        df['acc_nav'] = initial_price * df['cum_return']
         
         bias_stats = df['bias'].describe()
-        logger.info(f"ETF {name} 处理完成: {len(df)} 条 ({df['date'].min().date()} ~ {df['date'].max().date()})")
+        logger.info(f"ETF {name} 处理完成: {len(df)} 条 ({df['date'].min().date()} ~ {df['date'].max().date()})" )
         logger.info(f"bias 统计: mean={bias_stats['mean']:.2f}%, std={bias_stats['std']:.2f}%")
         
         return FundData(
@@ -213,7 +229,7 @@ class AkshareProvider:
     # 指数数据获取
     # ------------------------------------------------------------------
 
-    def get_index_history(self, code: str, start: str, end: str) -> IndexData:
+    def get_index_history(self, code: str, start: str, end: str) -> Optional[IndexData]:
         """
         获取指数前复权历史数据
         
@@ -354,36 +370,52 @@ class AkshareProvider:
     # 缓存机制
     # ------------------------------------------------------------------
 
-    def _load_from_cache(self, cache_path: Path, code: str = None, ignore_expiry: bool = False) -> Optional[pd.DataFrame]:
+    def _load_from_cache(self, cache_path: Path, code: Optional[str] = None, ignore_expiry: bool = False) -> Optional[pd.DataFrame]:
         """从本地缓存加载数据"""
         if not cache_path.exists():
-            return None
-        
-        is_permanent = code is not None and self._is_permanent_cache(code)
-        file_age = datetime.now() - datetime.fromtimestamp(cache_path.stat().st_mtime)
-        
-        if not ignore_expiry and not is_permanent and file_age > self._cache_expiry:
-            logger.info(f"缓存已过期（{file_age.days}天），重新获取")
+            logger.info(f"缓存文件不存在: {cache_path}")
             return None
         
         try:
-            import pickle
-            with open(cache_path, 'rb') as f:
-                cached_df = pickle.load(f)
+            is_permanent = code is not None and self._is_permanent_cache(code)
+            file_age = datetime.now() - datetime.fromtimestamp(cache_path.stat().st_mtime)
             
-            if not isinstance(cached_df, pd.DataFrame):
-                logger.warning(f"缓存格式不正确，重新获取")
+            if not ignore_expiry and not is_permanent and file_age > self._cache_expiry:
+                logger.info(f"缓存已过期（{file_age.days}天），重新获取")
                 return None
             
-            logger.info(f"从缓存加载成功，缓存年龄: {file_age.days}天")
-            return cached_df
+            # 加载缓存数据
+            df = pd.read_pickle(cache_path)
+            
+            # 验证数据完整性
+            if not self._validate_cache_data(df):
+                logger.warning("缓存数据不完整，重新获取")
+                return None
+            
+            return df
         except Exception as e:
-            logger.warning(f"缓存加载失败: {e}")
+            logger.warning(f"加载缓存失败: {e}，重新获取")
             return None
+    
+    def _validate_cache_data(self, df: pd.DataFrame) -> bool:
+        """验证缓存数据的完整性"""
+        required_cols = ['date', 'nav', 'ma_250', 'bias']
+        return all(col in df.columns for col in required_cols) and not df.empty
     
     def _save_to_cache(self, cache_path: Path, df: pd.DataFrame):
         """保存数据到本地缓存"""
         try:
+            # 数据完整性检查
+            if len(df) == 0:
+                logger.warning("尝试保存空数据到缓存，跳过")
+                return
+            
+            # 检查日期列
+            date_col = 'date' if 'date' in df.columns else ('日期' if '日期' in df.columns else None)
+            if date_col is None:
+                logger.warning("数据缺少日期列，跳过缓存")
+                return
+            
             import pickle
             with open(cache_path, 'wb') as f:
                 pickle.dump(df, f)
@@ -398,4 +430,6 @@ class AkshareProvider:
         date_col = 'date' if 'date' in df.columns else ('日期' if '日期' in df.columns else df.columns[0])
         actual_start = pd.to_datetime(df[date_col].min())
         actual_end = pd.to_datetime(df[date_col].max())
-        return user_start >= actual_start and user_end <= actual_end
+        logger.info(f"缓存日期范围: {actual_start.date()} ~ {actual_end.date()}")
+        logger.info(f"请求日期范围: {user_start.date()} ~ {user_end.date()}")
+        return actual_start <= user_start and actual_end >= user_end
